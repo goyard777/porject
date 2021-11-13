@@ -1,0 +1,82 @@
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+	<title>qna</title>
+	<jsp:include page="/include/header.jsp"/>
+<body>
+
+
+<script language="javascript">
+	httpUrl = "/common/process/qanda/list.asp"
+	httpUrl2 = "www.montraum.com"
+
+	function loginCheck() {
+		location.href="/common/all_site/member/login.asp?refer_page=%2Fcommon%2Fprocess%2Fqanda%2Flist%2Easp"
+	}
+</script>
+<script type="text/javascript" src="../resources/js/top.js"></script>
+
+<!--Content영역시작-->
+<section>
+	<div id="page-member-ask" class="section-member pc-width">
+		<div id="navigation-bar"><script>document.write(navistr)</script></div>
+		<h2 class="page-title"><script>document.write(siteTitle)</script></h2>
+		<!-- mypage 상단 시작 -->
+		
+	<div class="member-nav-wrapper">
+	<ul class="member-nav"> <!-- 나의 쇼핑현황일 때 open-sub-menu class를 추가 -->
+		<li>
+			<a href="/common/process/buy_list.asp">나의 쇼핑현황</a>
+			<div class="member-sub-nav">
+				<a href="/common/process/buy_list.asp">주문내역</a>
+				<a href="/common/process/order_list.asp?iniCategory=0">장바구니</a>
+				<a href="/common/process/wish_list.asp">위시리스트</a>
+				<a href="/common/process/mycoupon.asp">쿠폰</a>
+				<a href="/common/process/mypoint.asp">예치금</a>
+			</div>
+		</li>
+		<li><a href="/common/all_site/member/member_edit.asp">개인정보수정</a></li>
+		<li><a href="/common/process/baesong_addr.asp">주소록관리</a></li>
+		<li class="hide-mobile active"><a href="/common/process/qanda/list.asp">1:1문의</a></li>
+		<li><a href="/common/process/productAfter/myreview_view.asp">나의후기</a></li>
+		<li><a href="/common/all_site/member/member_out.asp">회원탈퇴</a></li>
+	</ul>
+	</div>
+
+	
+		<!-- mypage 상단 끝 -->
+		<div class="contents-wrapper">
+			<h2 class="page-sub-title kr">1:1 문의</h2>
+			<div class="page-content-desc">
+				<span class="only-pc">제품, 주문, 배송 등에 관한 문의사항을 남겨주세요. 빠르고 친절하게 안내해 드립니다.</span>
+				<span class="only-mobile">제품, 주문, 배송 등에 관한 문의사항을 남겨주세요.</span>
+				<span class="btn-write btn-up-right" onclick="location.href='write.asp'" style="cursor:pointer;">작성하기</span>
+			</div>
+			
+			<div class="ask-list">
+				<div class="block-row block-title">
+					<div class="block-cell kind">질문유형</div>
+					<div class="block-cell subject">제목</div>
+					<div class="block-cell regdate">작성일</div>
+					<div class="block-cell status">답변유무</div>
+					<div class="block-cell delete">문의삭제</div>
+				</div>
+		
+				
+
+			
+			<!-- PC 페이지 -->
+			<div class="pagination1 only-pc">
+				<span class='btn-page prev'></span><span class='btn-page next'></span>
+			</div>
+
+
+			
+	
+	</div>
+</section>
+<jsp:include page="/include/footer.jsp"/>

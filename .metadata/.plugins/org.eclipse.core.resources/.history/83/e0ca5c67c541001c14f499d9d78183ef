@@ -1,0 +1,93 @@
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title> A_team</title>
+</head>
+<body>
+<head> 
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+	<title>A_team_project</title>
+	
+	
+	<style>
+	#wrap{width:100%; height:1000px;}
+	.mainNav{width:100%; height:40px; background-color:pink; text-align:center; line-height:40px;}
+	.scrollNav{width:100%; height:50px; position:absolute; left:0; top:0; background-color:lightblue; text-align:center; line-height:50px; color:#fff; font-weight:600;}
+	
+	</style>
+	
+	<!-- test css -->
+	<!-- test html -->
+	<div id="wrap">
+		<div class="mainNav">
+		
+		</div>
+		<div class="scrollNav">
+		  스크로오로로로롤
+		</div>
+	  </div>
+	<!-- test html -->
+	<!-- test -->
+	<script>
+	
+	$(document).ready(function(){
+	
+	var navHeight = $(".mainNav").height(); 
+	//navHeight 의 높이를 구하기
+	
+	$(".scrollNav").hide();
+	//스크롤시 나타날 객체 미리 숨기기
+	
+	$(window).scroll(function(){  // 윈도우 스크롤 기능 작동
+		var rollIt = $(this).scrollTop() >= navHeight; 
+	// 스크롤의 정도가 navHeight 의 값을 넘었을 때 == 윈도우 스크롤의 값이 navHeight 의 높이와 같거나 크다
+	
+	/*
+	scrollTop 은 윈도우에서 스크롤의 위치가 가장 상위에 있다는 의미로 해석
+	스크롤의 위치가 화면 아래일수록 == scrollTop 의 값이 커짐
+	*/
+	
+	if(rollIt){ 
+		//윈도우 스크롤 기능의 값이 navHeight 의 높이와 같거나 크면
+			$(".scrollNav").show().css({"position":"fixed"});
+		}
+		else{
+			$(".scrollNav").hide();
+		}
+	});
+	
+	});
+	
+	
+	
+	
+	</script>
+
+</head>
+<body>
+	
+
+
+	
+	<section>
+
+			<jsp:include page="/include/header.jsp"/>
+			<jsp:include page="/include/banner.jsp"/>
+			<jsp:include page="/include/indexgoods.jsp"></jsp:include>
+			<jsp:include page="/include/indexReview.jsp"></jsp:include>
+			<jsp:include page="/include/indexnewarrival.jsp"></jsp:include>
+			<jsp:include page="/include/indexevent.jsp"></jsp:include>
+			<jsp:include page="/include/indexqna.jsp"></jsp:include>
+				
+
+	</section>
+	<jsp:include page="/include/rightmenu.jsp"></jsp:include>	
+	<jsp:include page="/include/footer.jsp"/>
+
+</body>
+</html>

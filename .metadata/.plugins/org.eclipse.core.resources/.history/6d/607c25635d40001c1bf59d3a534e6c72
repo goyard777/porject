@@ -1,0 +1,739 @@
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+<!DOCTYPE html>
+
+
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+	<title>::몬트라움:: 프리미엄 펫용품 전문쇼핑몰</title>
+
+
+<jsp:include page="/include/header.jsp"/>
+
+
+<body>
+
+
+<script language="javascript">
+	httpUrl = "searchidinfo0a92.html?ProcessGubun=B"
+	httpUrl2 = "www.montraum.com"
+
+	function loginCheck() {
+		location.href="loginefb7.html?refer_page=%2Fcommon%2Fall%5Fsite%2Fmember%2Fsearchidinfo%2Easp%3FProcessGubun%3DB"
+	}
+</script>
+<script language="javascript" src="../resources/images/top.js"></script>
+<script language="javascript" src="../resources/images/code.js" charset="euc-kr"></script>
+<!--Content영역시작-->
+<section>
+	<div id="page-member-find-id" class="section-member pc-width">
+		<div id="navigation-bar">
+			<span>Home</span>
+			<span>Member</span>
+			<span class="current">아이디/비밀번호 찾기</span>
+		</div>
+		
+		<h2 class="page-title kr">아이디/비밀번호 찾기</h2>
+		<form method="post" name="FindId" id="FindId" action="http://www.montraum.com/common/all_site/member/searchIdInfo_DB.asp">
+		<input type="hidden" name="ProcessGubun" value="A">	
+		<div class="contents-wrapper">
+			<div class="tab-contents">
+				<div class="tab-header">
+					<ul class="clearfix">
+						<li class="tab1" data-target="content1">아이디 찾기</li>
+						<li class="tab2 active" data-target="content2">비밀번호 찾기</li>
+					</ul>
+				</div>
+				<div class="tab-content">
+			
+					<!-- 아이디 찾기 -->
+					<div class="content1">
+					
+						<p class="top-comment only-pc">※ 회원정보에 등록된 성명, 휴대폰 또는 성명, 이메일을 통해 ID를 확인할 수 있습니다.</p>
+						<p class="top-comment only-mobile">※ 회원정보에 등록된 이메일, 휴대폰을 통해 ID를 확인</p>
+						<!-- TAB 동작은 member-find-id.js 에서 참고할 수 있습니다. -->
+						<ul class="find-method-select">
+							<li><label><input name="search_gu" id="search_gu" value="1" type="radio" value="method-email" checked="checked" /> 이메일</label></li>
+							<li><label><input name="search_gu" id="search_gu" value="2" type="radio" value="method-phone "/> 휴대폰</label></li>
+						</ul>
+
+						<!-- 이메일 찾기 -->
+						<div class="clearfix find-method method-email current">
+							<ul class="input-items">
+								<li>
+									<span class="input-name">이름</span>
+									<input name="txUsername1_txt" id="txUsername1_txt" type="text" class="input1 w-width" />
+									<input name="txUsername1" id="txUsername1" type="hidden" />
+								</li> 
+								<li>
+									<span class="input-name">이메일</span>
+									<input name="txEmail1" id="txEmail1" type="text" class="input1 w-width" />
+								</li>
+							</ul>
+						</div>
+						
+						<!-- 휴대폰 찾기 -->
+						<div class="clearfix find-method method-phone">
+							<ul class="input-items">
+								<li>
+									<span class="input-name">이름</span>
+									<input name="txUsername2_txt" id="txUsername2_txt" type="text" class="input1 w-width" />
+									<input name="txUsername2" id="txUsername2" type="hidden" />
+								</li> 
+								<li>
+									<span class="input-name">휴대폰</span>
+									<script language="javascript">make_select_code("select","handphone","mobile1","type1 phone-select","")</script> - 
+									<input name="mobile2" type="text" onkeydown="return onlyNumber(event)" maxlength="4" class="input1 phone1" /> - 
+									<input name="mobile3" type="text" onkeydown="return onlyNumber(event)" maxlength="4" class="input1 phone2" /> 
+								</li>
+							</ul>
+						</div>
+					</div>
+
+					<!-- 비밀번호 찾기 -->
+					<div class="content2 active">
+										
+						<p class="top-comment only-pc">
+							※ 회원정보에 등록된 성명, 휴대폰 또는 성명, 이메일을 통해 임시비밀번호를 발급해드립니다. <br />
+							※ 임시비밀번호 로그인 이후 마이페이지&gt;개인정보수정에서 비밀번호를 변경해주세요.
+						</p>
+						
+						<p class="top-comment only-mobile">
+							※ 회원정보에 등록된 휴대폰,이메일을 통해 임시비밀번호를 발급<br />
+							※ 로그인 이후 마이페이지&gt;개인정보수정에서 비밀번호를 변경해주세요.
+						</p>
+						
+						<!-- TAB 동작은 member-find-id.js 에서 참고할 수 있습니다. -->
+						<ul class="find-method-select">
+							<li><label><input name="search_gu_pass" id="search_gu_pass" value="1" type="radio" checked="checked" /> 이메일</label></li>
+							<li><label><input name="search_gu_pass" id="search_gu_pass" value="2" type="radio" "/> 휴대폰</label></li>
+						</ul>
+
+						<div class="clearfix find-method method-email current">
+							<ul class="input-items">
+								<li>
+									<span class="input-name">아이디</span>
+									<input name="txUserID1_pass" id="txUserID1_pass" type="text" class="input1 w-width" />
+								</li>
+								<li>
+									<span class="input-name">이름</span>
+									<input name="txUsername1_pass_txt" id="txUsername1_pass_txt" type="text" class="input1 w-width" />
+									<input name="txUsername1_pass" id="txUsername1_pass" type="hidden" />
+								</li> 
+								<li>
+									<span class="input-name">이메일</span>
+									<input name="txEmail1_pass" id="txEmail1_pass" type="text" class="input1 w-width" />
+								</li>
+							</ul>
+						</div>
+						
+						<div class="clearfix find-method method-phone">
+							<ul class="input-items">
+								<li>
+									<span class="input-name">아이디</span>
+									<input name="txUserID2_pass" id="txUserID2_pass" type="text" class="input1 w-width" />
+								</li>
+								<li>
+									<span class="input-name">이름</span>
+									<input name="txUsername2_pass_txt" id="txUsername2_pass_txt" type="text" class="input1 w-width" />
+									<input name="txUsername2_pass" id="txUsername2_pass" type="hidden" />
+								</li> 
+								<li>
+									<span class="input-name">휴대폰</span>
+									<script language="javascript">make_select_code("select","handphone","mobile1_pass","type1 phone-select","")</script> - 
+									<input name="mobile2_pass" type="text" onkeydown="return onlyNumber(event)" maxlength="4" class="input1 phone1" /> - 
+									<input name="mobile3_pass" type="text" onkeydown="return onlyNumber(event)" maxlength="4" class="input1 phone2" /> 
+								</li>
+							</ul>
+						</div>				
+					</div>
+
+				</div>
+			</div>
+		</div>
+		
+		<div class="action-buttons" id="find" style="display:">
+			<span class="type1">회원가입</span>
+			<span id="send_content1" class="ok type2" onClick="SendFindId();">찾기</span>
+			<span id="send_content2" class="ok type2" onClick="SendFindPw();" style="display:none">찾기</span>
+		</div>
+		
+		</form>
+	</div>
+</section>
+
+
+<div id="quickmenu" name="quickmenu" class="only-pc">
+	<ul class="quick_banner">
+		<a href="eventview064b.html?idx=162"><li class="nosmell"></li></a>
+		<a href="eventviewf89f.html?idx=136"><li class="bestbreed"></li></a>
+		<a href="eventviewfdd5.html?idx=350"><li class="firstbuying"></li></a>
+		<a href="eventview9b14.html?idx=462"><li class="sale"></li></a>
+
+	</ul>
+	<div class="viewed">
+		<a href="javascript:gdscroll(-86)" onfocus=blur()><p><img src="../resources/images/quickmenu_arrowup.png"></p></a>
+		<p class="tit">VIEWED <span id="num" name="num"></span></p>
+		<div id="TODAYLIST2" name="TODAYLIST2" style="height:255px;overflow:hidden;"></div>
+		<a href="javascript:gdscroll(86)" onfocus=blur()><p><img src="../resources/images/quickmenu_arrowdown.png"></p></a>
+	</div>
+	<div class="go-top"><p>TOP</p></div>
+</div>
+<script type="text/javascript">
+	//퀵메뉴
+	$(function() {
+		var UI = {
+			init: function() {this.quickMenuFn();},
+			initialize: function() {
+				this.id = {
+					target: {quick: '#quickmenu'}
+				};
+				this.init();
+			},
+			quickMenuFn: function() {
+				var quick = $(this.id.target.quick);
+				var qTop = parseInt(quick.css('top'));
+
+				$(window).scroll(function() {
+					var winTop = $(window).scrollTop();
+					var preTop = qTop + winTop;
+					var newTop = winTop + qTop - (parseInt(quick.css('height'))+qTop-$(window).height()+10);
+
+					if (newTop <= qTop) {
+						newTop = qTop;
+					}
+					quick.stop().animate({top: newTop}, 400);
+				})
+			},
+
+			scrollTop: function(eTarget, speed) {
+				var speed = speed || null;
+				eTarget.on('click', function() {
+					$('html, body').animate({
+						scrollTop: $("body").offset().top
+					}, speed)
+				})
+			}
+		};
+		$(function() {
+			UI.initialize();
+		})
+	})
+</script>
+
+<!-- 모바일 사이드바 170621-최문영작업 -->
+<div id="sidebar2">
+	<div class="top">
+		<img src="../resources/images/img_sidebar_logo.png" alt="MONTRAUM" class="ci"/>
+		<div class="buttons">
+			
+			<a href="join_agreement.html">회원가입</a>
+			<a href="login59a4.html?refer_page=%2Fcommon%2Fall%5Fsite%2Fmember%2Fsearchidinfo%2Easp%3FProcessGubun%3DB&amp;inicategory=0">로그인</a>
+			
+		</div>
+	</div>
+
+	<div class="block-1">
+		<ul>
+			<a href="shopbest6534.html?category_etc_id=1&amp;iniCategory=0"><li class="ico ico-best" style="background-size:initial;">BEST</li></a>
+			<a href="event.html"><li class="ico ico-event" style="background-size:initial;">EVENT</li></a>
+			<a href="members.html"><li class="ico ico-membership" style="background-size:initial;">MEMBERSHIP</li></a>
+		</ul>
+	</div>
+
+	<div class="tab-contents">
+		<div class="tab-header">
+			<ul class="clearfix">
+				<li class="tab1 active" data-target="content1">CATEGORY</li>
+				<li class="tab2" data-target="content2">BRAND</li>
+				<li class="tab3" data-target="content3">COMMUNITY</li>
+			</ul>
+		</div>
+
+		<div class="tab-content">
+			<!-- categoty -->
+			<div class="content1 active">
+				<ul class="cate-content">
+					<li class="cate-list-skin open">
+						<h3 class="depth-1" onclick="allCateClose(0);$(this).parent().find('.depth-2').slideToggle();"><p>강아지 사료</p></h3>
+						<div class="depth-2" name="cateList">
+							
+							<div><a href="shopmain3398.html?iniCategory=24&amp;thisCategory=29">그레인프리</a></div>
+							
+							<div><a href="shopmainde9a.html?iniCategory=24&amp;thisCategory=57">홀리스틱</a></div>
+							
+							<div><a href="shopmain715b.html?iniCategory=24&amp;thisCategory=60">연령별</a></div>
+							
+							<div><a href="shopmaind3d7.html?iniCategory=24&amp;thisCategory=95">프리미엄</a></div>
+							
+							<div><a href="shopmain1856.html?iniCategory=24&amp;thisCategory=108">간식&영양제</a></div>
+							
+						</div>
+					</li>
+					<li class="cate-list-out">
+						<h3 class="depth-1" onclick="allCateClose(2);$(this).parent().find('.depth-2').slideToggle();"><p>고양이 사료</p></h3>
+						<div class="depth-2" name="cateList">
+							
+							<div><a href="shopmain3798.html?iniCategory=107&amp;thisCategory=109">그레인프리</a></div>
+							
+							<div><a href="shopmain410a.html?iniCategory=107&amp;thisCategory=110">홀리스틱</a></div>
+							
+							<div><a href="shopmain271e.html?iniCategory=107&amp;thisCategory=111">연령별</a></div>
+							
+							<div><a href="shopmain833e.html?iniCategory=107&amp;thisCategory=114">프리미엄</a></div>
+							
+							<div><a href="shopmain6ad9.html?iniCategory=107&amp;thisCategory=112">간식&영양제</a></div>
+							
+						</div>
+					</li>
+					<li class="cate-list-bedding">
+						<h3 class="depth-1" onclick="allCateClose(1);$(this).parent().find('.depth-2').slideToggle();"><p>배변용품</p></h3>
+						<div class="depth-2" name="cateList">
+							
+							<div><a href="shopmaina0d3.html?iniCategory=25&amp;thisCategory=30">트레이닝 패드</a></div>
+							
+							<div><a href="shopmain673c.html?iniCategory=25&amp;thisCategory=31">노스멜 패드</a></div>
+							
+							<div><a href="shopmaina2c1.html?iniCategory=25&amp;thisCategory=115">피크닉 패드</a></div>
+							
+							<div><a href="shopmaina3e6.html?iniCategory=25&amp;thisCategory=117">퍼펙션 패드</a></div>
+							
+							<div><a href="shopmainab79.html?iniCategory=25&amp;thisCategory=121">아로마 패드</a></div>
+							
+							<div><a href="shopmain20b9.html?iniCategory=25&amp;thisCategory=96">원터치 배변판</a></div>
+							
+						</div>
+					</li>
+					<li class="cate-list-living">
+						<h3 class="depth-1" onclick="allCateClose(3);$(this).parent().find('.depth-2').slideToggle();"><p>미용</p></h3>
+						<div class="depth-2" name="cateList">
+							
+							<div><a href="shopmain7b85.html?iniCategory=27&amp;thisCategory=102">콤</a></div>
+							
+							<div><a href="shopmain60d5.html?iniCategory=27&amp;thisCategory=55">코트킹</a></div>
+							
+							<div><a href="shopmainf38b.html?iniCategory=27&amp;thisCategory=52">브러쉬</a></div>
+							
+							<div><a href="shopmaincea8.html?iniCategory=27&amp;thisCategory=62">가위</a></div>
+							
+							<div><a href="shopmaine5a9.html?iniCategory=27&amp;thisCategory=119">목욕타올</a></div>
+							
+							<div><a href="shopmain451c.html?iniCategory=27&amp;thisCategory=105">발톱깎이</a></div>
+							
+						</div>
+					</li>
+					<li class="cate-list-toy">
+						<h3 class="depth-1" onclick="allCateClose(4);$(this).parent().find('.depth-2').slideToggle();"><p>리빙/외출</p></h3>
+						<div class="depth-2" name="cateList">
+							
+							<div><a href="shopmainf65c.html?iniCategory=28&amp;thisCategory=99">펫 백팩</a></div>
+							
+							<div><a href="shopmain55e4.html?iniCategory=28&amp;thisCategory=81">펫 슬링백</a></div>
+							
+							<div><a href="shopmain5903.html?iniCategory=28&amp;thisCategory=86">듀얼마약방석</a></div>
+							
+							<div><a href="shopmain3997.html?iniCategory=28&amp;thisCategory=43">메모리폼 침대</a></div>
+							
+							<div><a href="shopmain879a.html?iniCategory=28&amp;thisCategory=120">넥카라</a></div>
+							
+							<div><a href="shopmain0fa7.html?iniCategory=28&amp;thisCategory=104">장난감</a></div>
+							
+						</div>
+					</li>
+					<li class="cate-list-cat">
+						<h3 class="depth-1" onclick="allCateClose(5);$(this).parent().find('.depth-2').slideToggle();"><p>고양이 용품</p></h3>
+						<div class="depth-2" name="cateList">
+							
+							<div><a href="shopmain830a.html?iniCategory=76&amp;thisCategory=113">화장실</a></div>
+							
+							<div><a href="shopmain898e.html?iniCategory=76&amp;thisCategory=78">모래</a></div>
+							
+							<div><a href="shopmainf3bd.html?iniCategory=76&amp;thisCategory=79">미용</a></div>
+							
+						</div>
+					</li>
+				</ul>
+			</div>
+			<!-- //categoty -->
+
+			<!-- brand -->
+			<div class="content2">
+				<ul class="cate-content">
+					<li class="cate-list open">
+						<div class="depth">
+							<div><a href="shopmain8356.html?iniCategory=2&amp;thisCategory=54">BEST BREED <span class="info">(Holistic Pet Nutrition)</span></a></div>
+						</div>
+						<div class="depth">
+							<div><a href="shopmainc90f.html?iniCategory=2&amp;thisCategory=20">PRODOGGIE <span class="info">(Smart Training Pad)</span></a></div>
+						</div>
+						<div class="depth">
+							<div><a href="shopmaind59e.html?iniCategory=2&amp;thisCategory=74">WEGONO <span class="info">(Easy&Trendy Pet’s Outdoor Goods)</span></a></div>
+						</div>
+						<div class="depth">
+							<div><a href="shopmain176d.html?iniCategory=2&amp;thisCategory=22">MARS ALCOSO <span class="info">(Masterpiece Grooming Tools)</span></a></div>
+						</div>
+						<div class="depth">
+							<div><a href="shopmain8261.html?iniCategory=2&amp;thisCategory=73">DIG & ROLL <span class="info">(Ideal Cat Brand)</span></a></div>
+						</div>
+						<div class="depth">
+							<div><a href="shopmain04d6.html?iniCategory=2&amp;thisCategory=21">KOMPLETT <span class="info">(PET BED)</span></a></div>
+						</div>
+						<div class="depth">
+							<div><a href="shopmain68fb.html?iniCategory=2&amp;thisCategory=82">ICELAND PET <span class="info">(The Clean Power of Nature)</span></a></div>
+						</div>
+						<div class="depth">
+							<div><a href="shopmain8ecb.html?iniCategory=2&amp;thisCategory=101">CARNA4 <span class="info">(Hand Crafted Pet Food)</span></a></div>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<!-- //brand -->
+
+			<!-- community -->
+			<div class="content3">
+				<ul class="cate-content">
+					<li class="cate-list open">
+						<div class="depth">
+							<div><a href="review.html">Product Review</a></div>
+							<div><a href="notice-2.html">Notice</a></div>
+							<div><a href="faq.html">FAQ</a></div>
+							<div><a href="list.html">1:1 QNA</a></div>
+							<div><a href="members.html">Membership</a></div>
+							<div><a href="press.html">News</a></div>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<!-- //community -->
+
+		</div>
+	</div>
+	<div class="viewed-items">
+		<h3>VIEWED (<span id="viewedCnt"></span>)</h3>
+		<div class="viewed-item-list" id="TODAYLIST"></div>
+	</div>
+</div>
+<!--사이드바 종료-->
+
+<div id="body-mask" onclick="closeSidebar();"></div>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$(".select-box").change(function(){
+			if($(this).val() != ""){
+				$("#familyFrm").attr("action",$(this).val());
+				$("#familyFrm").submit();
+			}
+		});
+	});
+
+	function f_escrowKsnet(){
+		//이니시스 에스크로 가입확인
+		window.open("https://mark.inicis.com/mark/escrow_popup.php?mid=monvatesc0","mark","scrollbars=no,resizable=no,width=565,height=683");
+	}
+
+
+	var endnum=0
+
+	if(getCookie("TodayGoods") != ""){
+		TodayGoods = getCookie("TodayGoods").split(",")
+		TodayGoods.unique();
+		endnum = TodayGoods.length
+	}else{
+		TodayGoods = new Array()
+		endnum = 0;
+	}
+	document.getElementById("viewedCnt").innerText = endnum;
+	document.getElementsByName("num")[0].innerText = "("+endnum+")개"
+
+	if (endnum>0) {
+		var sumText2 ="";
+		for (var i=0 ; i<endnum ; i++) {
+
+			if (TodayGoods[i].split("^").length==4 && TodayGoods[i].indexOf("category_site")==-1) {
+				if (TodayGoods[i].split("^")[1].substring(0,1) == "P")
+				{
+					sumText = "<div class=\"item\"><img src='/_/resourcesvir0001/product_img/middle/"+ TodayGoods[i].split("^")[1] + "' "
+					sumText2 += "<li><img width='80' width='80' src='/_/resourcesvir0001/product_img/middle/"+ TodayGoods[i].split("^")[1] + "' style='cursor:pointer;' onclick=\"location.href='/common/process/shopview.asp?pack_content_id="+ TodayGoods[i].split("^")[0] +"&thisCategory="+TodayGoods[i].split("^")[3]+"'\"></li> "
+				}else{
+					sumText = "<div class=\"item\"><img src='/_/resourcesvir0001/product_img/ini_product/middle/"+ TodayGoods[i].split("^")[1] + "' "
+					sumText2 += "<li><img width='80' width='80' src='/_/resourcesvir0001/product_img/ini_product/middle/"+ TodayGoods[i].split("^")[1] + "' style='cursor:pointer;' onclick=\"location.href='/common/process/shopview.asp?pack_content_id="+ TodayGoods[i].split("^")[0] +"&thisCategory="+TodayGoods[i].split("^")[3]+"'\"></li> "
+				}
+
+				sumText = sumText + " onclick=\"location.href='/common/process/shopview.asp?pack_content_id="+ TodayGoods[i].split("^")[0] +"&thisCategory="+TodayGoods[i].split("^")[3]+"'\" "
+				sumText = sumText + "></div>"
+
+
+
+				document.getElementById("TODAYLIST").innerHTML = document.getElementById("TODAYLIST").innerHTML + sumText
+			}
+		}
+		document.getElementById("TODAYLIST2").innerHTML = "<ul class='list'>" + sumText2 + "</ul>"
+
+	}
+	function gdscroll(gap)
+	{
+		var gdscroll = document.getElementsByName('TODAYLIST2')[0];
+		gdscroll.scrollTop += gap;
+	}
+
+</script>
+
+<form name="familyFrm" id="familyFrm" action="#" target="_blank"></form>
+
+
+<script type="text/javascript">
+	$(function(){
+		$(".cate-content li .depth-1").click(function(){
+			if( $(this).parent().hasClass('open') ) {
+				$(this).parent().removeClass('open');
+			} else {
+				$(this).parents('.cate-content').find(".open").removeClass('open');
+				$(this).parent().addClass('open');
+			}
+		});
+	})
+
+	// TAB 의 동작은 스크립트
+	$(function(){
+		$(".tab-contents .tab-header li").click(function(){
+			var target = $(this).attr('data-target');
+			$(this).parent().find("li.active").removeClass('active');
+			$(this).addClass('active');
+			$(this).closest('.tab-contents').find('.tab-content div.active').removeClass('active');
+			$(this).closest('.tab-contents').find("."+target).addClass('active');
+		});
+	});
+
+	function allCateClose(idx) {
+		var cateList = document.getElementsByName("cateList");
+		for(i=0;i<cateList.length;i++){
+			if(idx != i) {
+				cateList[i].style.display = "none";
+			}
+		}
+	}
+</script>
+<script language="javascript" src="../resources/images/code.js"></script>
+
+
+<!-- AceCounter Log Gathering Script V.7.5.2017020801 -->
+<script language='javascript'>
+	var _AceGID=(function(){var Inf=['gtc14.acecounter.com','8080','AS4A42151972793','AW','0','NaPm,Ncisy','ALL','0']; var _CI=(!_AceGID)?[]:_AceGID.val;var _N=0;var _T=new Image(0,0);if(_CI.join('.').indexOf(Inf[3])<0){ _T.src =( /resourceslocation.protocol=="https:"?"https://"+Inf[0]:"http://"+Inf[0]+":"+Inf[1]) +'/?cookie'; _CI.push(Inf);  _N=_CI.length; } return {o: _N,val:_CI}; })();
+	var _AceCounter=(function(){var G=_AceGID;var _sc=document.createElement('script');var _sm=document.getElementsByTagName('script')[0];if(G.o!=0){var _A=G.val[G.o-1];var _G=(_A[0]).substr(0,_A[0].indexOf('.'));var _C=(_A[7]!='0')?(_A[2]):_A[3];var _U=(_A[5]).replace(/\,/g,'_');_sc.src=(lo/resourcescation.protocol.indexOf('http')==0?location.protocol:'http:')+'//cr.acecounter.com/Web/AceCounter_'+_C+'.js?gc='+_A[2]+'&py='+_A[4]+'&gd='+_G+'&gp='+_A[1]+'&up='+_U+'&rd='+(new Date().getTime());_sm.parentNode.insertBefore(_sc,_sm);return _sc.src;}})/resources();
+</script>
+<noscript><img src='ht/resourcestp://gtc14.acecounter.com:8080/?uid=AS4A42151972793&amp;je=n&amp;' border='0' width='0' height='0' alt=''></noscript>
+<!-- AceCounter Log Gathering Script End -->
+
+
+<!-- WIDERPLANET  SCRIPT START 2018.5.21 (공통) (* 공통 태그는 타 태그(아이템, 장바구니, 구매완료, 전환 완료)보다 하단에 위치하여야 합니다. ) -->
+<div id="wp_tg_cts" style="display:none;"></div>
+<script type="text/javascript">
+var wptg_tagscript_vars = wptg_tagscript_vars || [];
+wptg_tagscript_vars.push(
+(function() {
+	return {
+		wp_hcuid:"",   /*고객넘버 등 Unique ID (ex. 로그인  ID, 고객넘버 등 )를 암호화하여 대입.
+				*주의 : 로그인 하지 않은 사용자는 어떠한 값도 대입하지 않습니다.*/
+		ti:"41190",	/*광고주 코드 */
+		ty:"Home",	/*트래킹태그 타입 */
+		device:"web"	/*디바이스 종류  (web 또는  mobile)*/
+
+	};
+}));
+</script>
+<script type="text/javascript" async src="../resources/images/wp_astg_4.0.js"></script>
+<!-- WIDERPLANET  SCRIPT START 2018.5.21 (공통)-->
+
+
+<!-- Enliple Common Tracker v3.6 [공용] start -->
+<script type="text/javascript">
+<!--
+function mobRf() {
+    var rf = new EN();
+    rf.setData("userid", "montraum");
+    rf.setSSL(true);
+    rf.sendRf();
+}
+//-->
+</script>
+<!-- Enliple Common Tracker v3.6 [공용] end -->
+
+
+
+<script src="../resources/images/enliple_min3.6.js" defer="defer" onload="mobRf();"></script>
+
+
+
+<!-- ADN Tracker[공통] start -->
+<script type="text/javascript">
+var adn_param = adn_param || [];
+adn_param.push([{ 	
+ ui:'101877',
+ ut:'Home'
+}]);
+</script>
+<script type="text/javascript" async src="../resources/images/adn_tags_1.0.0.js"></script>
+<!-- ADN Tracker[공통] end -->
+
+<!-- ADN 크로징 설치  start -->
+<script type="text/javascript">
+var adn_panel_param = adn_panel_param || [];
+adn_panel_param.push([{
+ ui:'101877',	
+ ci:'1018770001',
+ gi:'21528'
+}]);
+</script>
+<script type="text/javascript" async src="../resources/images/adn_closingad_1.1.1.js"></script>
+<!-- ADN 크로징 설치 end -->
+
+<!-- ADN 크로징 설치 반응형 start -->
+<script type="text/javascript">
+var adn_mobile_panel_param = adn_mobile_panel_param || [];
+adn_mobile_panel_param.push([{
+ ui:'101877',  
+ ci:'1018770002',
+ gi:'21530'
+}]);
+</script>
+<script type="text/javascript" async src="../resources/images/adn_mobile_closingad_1.1.2.js"></script>
+<!-- ADN 크로징 설치 end -->
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="ht/resourcestps://www.googletagmanager.com/ns.html?id=GTM-WDLJW3X"
+		height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+</body>
+
+<!-- Mirrored from www.montraum.com/common/all_site/member/searchidinfo.asp?ProcessGubun=B by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 25 Oct 2021 06:20:35 GMT -->
+</html>
+
+<SCRIPT language=JavaScript>
+<!--
+if("B" == "B" ){
+		$("#send_content1").hide();
+		$("#send_content2").show();
+	if("" == "N" ){
+		//search_chg("2");
+	}
+}
+
+
+function SendFindId(){
+	
+
+	if (document.getElementsByName("search_gu")[0].checked == true)
+	{
+		if (isEmpty(document.FindId.txUsername1_txt.value)){ alert("이름을 입력하세요");  document.FindId.txUsername1_txt.focus(); return}
+		if (isEmpty(document.FindId.txEmail1.value)){ alert("이메일을 입력해 주세요");  document.FindId.txEmail1.focus(); return}
+		document.FindId.txUsername1.value = escape(document.FindId.txUsername1_txt.value)
+	}else if (document.getElementsByName("search_gu")[1].checked == true)
+	{
+		if (isEmpty(document.FindId.txUsername2_txt.value)){ alert("이름을 입력하세요");  document.FindId.txUsername2_txt.focus(); return}
+		if (isEmpty(document.FindId.mobile1.value)||isEmpty(document.FindId.mobile2.value)||isEmpty(document.FindId.mobile3.value)){ alert("휴대폰 번호를 입력해 주세요"); return}
+		document.FindId.txUsername2.value = escape(document.FindId.txUsername2_txt.value)
+	}
+
+	
+	document.FindId.ProcessGubun.value = "A";
+	document.FindId.submit();
+	return
+}
+
+function SendFindPw(){
+
+	if (document.getElementsByName("search_gu_pass")[0].checked == true)
+	{
+		if (isEmpty(document.FindId.txUserID1_pass.value)){ alert("아이디를 입력하세요");  document.FindId.txUserID1_pass.focus(); return}
+		if (isEmpty(document.FindId.txUsername1_pass_txt.value)){ alert("이름을 입력하세요");  document.FindId.txUsername1_pass_txt.focus(); return}
+		if (isEmpty(document.FindId.txEmail1_pass.value)){ alert("이메일을 입력해 주세요");  document.FindId.txEmail1_pass.focus(); return}
+		document.FindId.txUsername1_pass.value = escape(document.FindId.txUsername1_pass_txt.value)
+	}else if (document.getElementsByName("search_gu_pass")[1].checked == true)
+	{
+		if (isEmpty(document.FindId.txUserID2_pass.value)){ alert("아이디를 입력하세요");  document.FindId.txUserID2_pass.focus(); return}
+		if (isEmpty(document.FindId.txUsername2_pass_txt.value)){ alert("이름을 입력하세요");  document.FindId.txUsername2_pass_txt.focus(); return}
+		if (isEmpty(document.FindId.mobile1_pass.value)||isEmpty(document.FindId.mobile2_pass.value)||isEmpty(document.FindId.mobile3_pass.value)){ alert("휴대전화를 입력해 주세요"); return}
+		document.FindId.txUsername2_pass.value = escape(document.FindId.txUsername2_pass_txt.value)
+	}
+
+	
+	document.FindId.ProcessGubun.value = "B";
+	document.FindId.submit();
+	return
+}
+
+
+function SendFindPass(gu){
+		
+	window.open("searchidinfo_mail2630.html?UserID=&amp;Pass_gu="+gu,"PassWord","width=450 ,height=220,top=400,left=700 , scrollbars=no");
+
+}
+
+function onlyNumber(event) {
+
+	var key = window.event ? event.keyCode : event.which;    
+
+    if ((event.shiftKey == false) && ((key  > 47 && key  < 58) || (key  > 95 && key  < 106)
+
+    || key  == 35 || key  == 36 || key  == 37 || key  == 39  // 방향키 좌우,home,end  
+
+    || key  == 8  || key  == 46|| key  == 9 ) // del, back space
+
+    ) {
+
+        return true;
+
+    }else {
+
+        return false;
+
+    }    
+
+}
+
+$(function(){
+	//탭동작 스크립트
+	$(".tab-contents .tab-header li").click(function(){
+		var target = $(this).attr('data-target');
+		$(this).parent().find("li.active").removeClass('active');
+		$(this).addClass('active');
+		$(this).closest('.tab-contents').find('.tab-content div.active').removeClass('active');
+		$(this).closest('.tab-contents').find("."+target).addClass('active');
+		$("#search_gu")[0].checked = true;
+		$("#search_gu_pass")[0].checked = true;
+		$(".tab-content").find(".find-method").removeClass('current');
+		$(".tab-content").find(".method-email").addClass('current');
+		$(".tab-content").find(".top-comment.result").hide();
+		$(".tab-content").find(".find-method-select").show();
+		$(".ok").hide();
+		$("#send_"+target).show();
+		$("#find").show();
+		$("#re_find").hide();
+	});
+	
+	//이메일/휴대폰 전환 스크립트
+	$(".find-method-select input").change(function(){
+		var method = $(this).val();
+		if (method == '1') {
+			method = "method-email";
+		} else {
+			method = "method-phone";
+		}
+		$(this).closest('.tab-content').find('.find-method').removeClass('current');
+		$(this).closest('.tab-content').find('.'+method).addClass('current');
+	})
+});
+
+//-->
+</SCRIPT>
+</body>
+</html>

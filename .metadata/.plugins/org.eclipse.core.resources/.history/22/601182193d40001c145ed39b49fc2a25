@@ -1,0 +1,389 @@
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+	<title>1:1문의 작성</title>
+	<jsp:include page="/include/header.jsp"/>
+	<meta name="description" content="">
+	<meta name="author" content="">
+	
+
+	<!--link rel="stylesheet" type="text/css" href="//cloud.typography.com/7688574/788488/css/fonts.css" /-->
+
+
+
+<script language="javascript">
+	httpUrl = "/common/process/qanda/write.asp"
+	httpUrl2 = "www.montraum.com"
+
+	function loginCheck() {
+		location.href="/common/all_site/member/login.asp?refer_page=%2Fcommon%2Fprocess%2Fqanda%2Fwrite%2Easp"
+	}
+</script>
+<script language="javascript" src="../resources/images/top.js"></script>
+<!--Content영역시작-->
+<section>
+	<div id="page-member-ask" class="section-member pc-width">
+		<div id="navigation-bar"><script>document.write(navistr)</script></div>
+		<h2 class="page-title"><script>document.write(siteTitle)</script></h2>
+		<!-- mypage 상단 시작 -->
+		
+	<div class="member-nav-wrapper">
+	<ul class="member-nav"> <!-- 나의 쇼핑현황일 때 open-sub-menu class를 추가 -->
+		<li>
+			<a href="buy_list.jsp">나의 쇼핑현황</a>
+			<div class="member-sub-nav">
+				<a href="orderlist.jsp">주문내역</a>
+				<a href="shoppingbasket.jsp">장바구니</a>
+				<a href="wish.jsp">위시리스트</a>
+				<a href="mycoupon.jsp">쿠폰</a>
+				<a href="mypoint.jsp">예치금</a>
+			</div>
+		</li>
+		<li><a href="member_Modify.jsp">개인정보수정</a></li>
+		<li><a href="baesong_addr.jsp">주소록관리</a></li>
+		<li class="hide-mobile active"><a href="qna.jsp">1:1문의</a></li>
+		<li><a href="myreview_view.jsp">나의후기</a></li>
+		<li><a href="member_Withdrawal.jsp">회원탈퇴</a></li>
+	</ul>
+	</div>
+
+	
+		<!-- mypage 상단 끝 -->
+		<div class="contents-wrapper">
+			<h2 class="page-sub-title kr">1:1 문의</h2>
+			<div class="page-content-desc">
+				<span class="only-pc">제품, 주문, 배송 등에 관한 문의사항을 남겨주세요. 빠르고 친절하게 안내해 드립니다.</span>
+				<span class="only-mobile">제품, 주문, 배송 등에 관한 문의사항을 남겨주세요.</span>
+			</div>
+
+			<form name="form1" method="post" action="insert_DB.asp" enctype="multipart/form-data">
+				<input type="hidden" name="choice" value="insert"/>
+				<table class="item-table type1 ask-write">
+					<tr>
+						<th>질문유형</th>
+						<td>
+							<select name="type" class="type2 kind" onChange="view_jumun(this.value);">
+								<option value="">선택하세요.</option>
+								<option value="1">일반문의</option>
+								<option value="2">주문관련 문의</option>
+							</select>
+							<span id="jumun" name="jumun" style="display:none;">
+								<input type="text" name ="jumuncode" class="input1" readOnly>
+								<input type="hidden" name ="id">
+								<span class="ok type2 btn-type1" onClick="search_jumun();" style="cursor:pointer;">주문번호 찾기</span>
+							</span>
+						</td>
+					</tr>
+					<tr>
+						<th>답변이메일</th>
+						<td>
+							
+						</td>
+					</tr>
+					<tr>
+						<th>제목</th>
+						<td>
+							<input type="text" name="subject" class="input2 subject" />
+						</td>
+					</tr>
+					<tr id="qna-file-mobile">
+
+					</tr>
+				</table>
+				<div id="qna-body-pc" class="input-wrapper">
+					<script type="text/javascript" src="/_vir0001/easyEditor/easyEditor_euckrCustomer.js" charset="euc-kr"></script>
+<textarea name="content" id="content" class="input1 ask-body"></textarea>
+<script type="text/javascript" >
+var ed = new easyEditor("content");
+ed.cfg.Btn = ["font","size","bar",
+				"left","center","right","bar",
+				"color","hilite","bar",
+				"bold","italic","underline","strike","bar",
+				"hr","link","bar",
+				"image","bar","source"];
+ed.cfg.height='450px'
+ed.init();
+</script>
+
+				</div>
+				<div id="qna-body-mobile" class="input-wrapper">
+					<textarea class="input1 ask-body" name="contentm" rows="10"></textarea>
+				</div>
+				<div class="action-buttons">
+					<span class="cancel type1" onclick="history.back();" style="cursor:pointer;">취소</span>
+					<span class="ok type2" onclick="this_submit();" style="cursor:pointer;">등록</span>
+				</div>
+			</form>
+
+		</div>
+	</div>
+</section>
+
+
+
+<jsp:include page="/include/footer.jsp"/>
+
+	
+			
+
+<div id="body-mask" onclick="closeSidebar();"></div>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$(".select-box").change(function(){
+			if($(this).val() != ""){
+				$("#familyFrm").attr("action",$(this).val());
+				$("#familyFrm").submit();
+			}
+		});
+	});
+
+	function f_escrowKsnet(){
+		//이니시스 에스크로 가입확인
+		window.open("https://mark.inicis.com/mark/escrow_popup.php?mid=monvatesc0","mark","scrollbars=no,resizable=no,width=565,height=683");
+	}
+
+
+	var endnum=0
+
+	if(getCookie("TodayGoods") != ""){
+		TodayGoods = getCookie("TodayGoods").split(",")
+		TodayGoods.unique();
+		endnum = TodayGoods.length
+	}else{
+		TodayGoods = new Array()
+		endnum = 0;
+	}
+	document.getElementById("viewedCnt").innerText = endnum;
+	document.getElementsByName("num")[0].innerText = "("+endnum+")개"
+
+	if (endnum>0) {
+		var sumText2 ="";
+		for (var i=0 ; i<endnum ; i++) {
+
+			if (TodayGoods[i].split("^").length==4 && TodayGoods[i].indexOf("category_site")==-1) {
+				if (TodayGoods[i].split("^")[1].substring(0,1) == "P")
+				{
+					sumText = "<div class=\"item\"><img src='/_vir0001/product_img/middle/"+ TodayGoods[i].split("^")[1] + "' "
+					sumText2 += "<li><img width='80' width='80' src='/_vir0001/product_img/middle/"+ TodayGoods[i].split("^")[1] + "' style='cursor:pointer;' onclick=\"location.href='/common/process/shopview.asp?pack_content_id="+ TodayGoods[i].split("^")[0] +"&thisCategory="+TodayGoods[i].split("^")[3]+"'\"></li> "
+				}else{
+					sumText = "<div class=\"item\"><img src='/_vir0001/product_img/ini_product/middle/"+ TodayGoods[i].split("^")[1] + "' "
+					sumText2 += "<li><img width='80' width='80' src='/_vir0001/product_img/ini_product/middle/"+ TodayGoods[i].split("^")[1] + "' style='cursor:pointer;' onclick=\"location.href='/common/process/shopview.asp?pack_content_id="+ TodayGoods[i].split("^")[0] +"&thisCategory="+TodayGoods[i].split("^")[3]+"'\"></li> "
+				}
+
+				sumText = sumText + " onclick=\"location.href='/common/process/shopview.asp?pack_content_id="+ TodayGoods[i].split("^")[0] +"&thisCategory="+TodayGoods[i].split("^")[3]+"'\" "
+				sumText = sumText + "></div>"
+
+
+
+				document.getElementById("TODAYLIST").innerHTML = document.getElementById("TODAYLIST").innerHTML + sumText
+			}
+		}
+		document.getElementById("TODAYLIST2").innerHTML = "<ul class='list'>" + sumText2 + "</ul>"
+
+	}
+	function gdscroll(gap)
+	{
+		var gdscroll = document.getElementsByName('TODAYLIST2')[0];
+		gdscroll.scrollTop += gap;
+	}
+
+</script>
+
+<form name="familyFrm" id="familyFrm" action="" target="_blank"></form>
+
+
+<script type="text/javascript">
+	$(function(){
+		$(".cate-content li .depth-1").click(function(){
+			if( $(this).parent().hasClass('open') ) {
+				$(this).parent().removeClass('open');
+			} else {
+				$(this).parents('.cate-content').find(".open").removeClass('open');
+				$(this).parent().addClass('open');
+			}
+		});
+	})
+
+	// TAB 의 동작은 스크립트
+	$(function(){
+		$(".tab-contents .tab-header li").click(function(){
+			var target = $(this).attr('data-target');
+			$(this).parent().find("li.active").removeClass('active');
+			$(this).addClass('active');
+			$(this).closest('.tab-contents').find('.tab-content div.active').removeClass('active');
+			$(this).closest('.tab-contents').find("."+target).addClass('active');
+		});
+	});
+
+	function allCateClose(idx) {
+		var cateList = document.getElementsByName("cateList");
+		for(i=0;i<cateList.length;i++){
+			if(idx != i) {
+				cateList[i].style.display = "none";
+			}
+		}
+	}
+</script>
+<script language="javascript" src="/_vir0001/code.js"></script>
+
+
+<!-- AceCounter Log Gathering Script V.7.5.2017020801 -->
+<script language='javascript'>
+	var _AceGID=(function(){var Inf=['gtc14.acecounter.com','8080','AS4A42151972793','AW','0','NaPm,Ncisy','ALL','0']; var _CI=(!_AceGID)?[]:_AceGID.val;var _N=0;var _T=new Image(0,0);if(_CI.join('.').indexOf(Inf[3])<0){ _T.src =( location.protocol=="https:"?"https://"+Inf[0]:"http://"+Inf[0]+":"+Inf[1]) +'/?cookie'; _CI.push(Inf);  _N=_CI.length; } return {o: _N,val:_CI}; })();
+	var _AceCounter=(function(){var G=_AceGID;var _sc=document.createElement('script');var _sm=document.getElementsByTagName('script')[0];if(G.o!=0){var _A=G.val[G.o-1];var _G=(_A[0]).substr(0,_A[0].indexOf('.'));var _C=(_A[7]!='0')?(_A[2]):_A[3];var _U=(_A[5]).replace(/\,/g,'_');_sc.src=(location.protocol.indexOf('http')==0?location.protocol:'http:')+'//cr.acecounter.com/Web/AceCounter_'+_C+'.js?gc='+_A[2]+'&py='+_A[4]+'&gd='+_G+'&gp='+_A[1]+'&up='+_U+'&rd='+(new Date().getTime());_sm.parentNode.insertBefore(_sc,_sm);return _sc.src;}})();
+</script>
+<noscript><img src='http://gtc14.acecounter.com:8080/?uid=AS4A42151972793&je=n&' border='0' width='0' height='0' alt=''></noscript>
+<!-- AceCounter Log Gathering Script End -->
+
+
+<!-- WIDERPLANET  SCRIPT START 2018.5.21 (공통) (* 공통 태그는 타 태그(아이템, 장바구니, 구매완료, 전환 완료)보다 하단에 위치하여야 합니다. ) -->
+<div id="wp_tg_cts" style="display:none;"></div>
+<script type="text/javascript">
+var wptg_tagscript_vars = wptg_tagscript_vars || [];
+wptg_tagscript_vars.push(
+(function() {
+	return {
+		wp_hcuid:"",   /*고객넘버 등 Unique ID (ex. 로그인  ID, 고객넘버 등 )를 암호화하여 대입.
+				*주의 : 로그인 하지 않은 사용자는 어떠한 값도 대입하지 않습니다.*/
+		ti:"41190",	/*광고주 코드 */
+		ty:"Home",	/*트래킹태그 타입 */
+		device:"web"	/*디바이스 종류  (web 또는  mobile)*/
+
+	};
+}));
+</script>
+<script type="text/javascript" async src="//cdn-aitg.widerplanet.com/js/wp_astg_4.0.js"></script>
+<!-- WIDERPLANET  SCRIPT START 2018.5.21 (공통)-->
+
+
+<!-- Enliple Common Tracker v3.6 [공용] start -->
+<script type="text/javascript">
+<!--
+function mobRf() {
+    var rf = new EN();
+    rf.setData("userid", "montraum");
+    rf.setSSL(true);
+    rf.sendRf();
+}
+//-->
+</script>
+<!-- Enliple Common Tracker v3.6 [공용] end -->
+
+
+
+<script src="https://cdn.megadata.co.kr/js/en_script/3.6/enliple_min3.6.js" defer="defer" onload="mobRf();"></script>
+
+
+
+<!-- ADN Tracker[공통] start -->
+<script type="text/javascript">
+var adn_param = adn_param || [];
+adn_param.push([{ 	
+ ui:'101877',
+ ut:'Home'
+}]);
+</script>
+<script type="text/javascript" async src="//fin.rainbownine.net/js/adn_tags_1.0.0.js"></script>
+<!-- ADN Tracker[공통] end -->
+
+<!-- ADN 크로징 설치  start -->
+<script type="text/javascript">
+var adn_panel_param = adn_panel_param || [];
+adn_panel_param.push([{
+ ui:'101877',	
+ ci:'1018770001',
+ gi:'21528'
+}]);
+</script>
+<script type="text/javascript" async src="//fin.rainbownine.net/js/adn_closingad_1.1.1.js"></script>
+<!-- ADN 크로징 설치 end -->
+
+<!-- ADN 크로징 설치 반응형 start -->
+<script type="text/javascript">
+var adn_mobile_panel_param = adn_mobile_panel_param || [];
+adn_mobile_panel_param.push([{
+ ui:'101877',  
+ ci:'1018770002',
+ gi:'21530'
+}]);
+</script>
+<script type="text/javascript" async src="//fin.rainbownine.net/js/adn_mobile_closingad_1.1.2.js"></script>
+<!-- ADN 크로징 설치 end -->
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WDLJW3X"
+		height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+</body>
+</html>
+<script type="text/javascript">
+
+	form = document.form1;
+
+	function this_submit() {
+		if (form.type.value == "2" && form.jumuncode.value == "" ) {
+			alert("문의형태가 [주문관련 문의]인 경우 주문번호찾기를 통하여 주문번호를 입력하여 주십시오.");
+			form.jumuncode.focus();
+			return false;
+		}
+
+		if (form.subject.value == "") {
+			alert ("제목을 작성해 주십시오");
+			form.subject.focus();
+			return false;
+		}
+
+		if (!isMobile) {
+			if (ed.getHtml() == "") {
+				alert("내용을 작성해 주십시오");
+				return false;
+			}
+		}
+		else {
+			if (form.contentm.value == "") {
+				alert ("내용을 작성해 주십시오");
+				return false;
+			} else {
+				form.content.value = form.contentm.value;
+			}
+		}
+
+		form.submit();
+	}
+
+
+	function view_jumun(val){
+		if (val == 2) {
+			document.getElementsByName("jumun")[0].style.display = "";
+		} else {
+			document.getElementsByName("jumun")[0].style.display = "none";
+			form.jumuncode.value = "";
+			form.id.value = "";
+		}
+	}
+
+
+	function search_jumun(){
+		window.open("/common/process/qanda/search_jumuncode.asp","jumunpop","width=750,height=600,scrollbars=yes,resizable");
+	}
+
+
+	$(function() {
+		if (!isMobile) {
+			 document.getElementById("qna-body-pc").style.display = "block";
+			 document.getElementById("qna-body-mobile").style.display = "none";
+			 document.getElementById("qna-file-mobile").innerHTML = "";
+		}
+		else {
+			document.getElementById("qna-body-pc").style.display = "none";
+			document.getElementById("qna-body-mobile").style.display = "block";
+			document.getElementById("qna-file-mobile").innerHTML = "<th>파일첨부</th><td><input type=\"file\" name=\"file\" /></td>";
+		}
+	});
+//-->
+</SCRIPT>

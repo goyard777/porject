@@ -1,0 +1,1234 @@
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+	<title>::몬트라움:: 프리미엄 펫용품 전문쇼핑몰</title>
+	<jsp:include page="/include/header.jsp"/>
+
+
+
+
+</head>
+
+
+	<!--네비영역종료-->
+
+
+<script language="javascript" src="/top.js"></script>
+<script language="javascript" src="../resources/js/_vir0001/code.js" charset="utf-8"></script>
+<script language="javascript" src="../resources/js/_vir0001/all_site/member/code_member.js" charset="utf-8"></script>
+<script language="javascript">
+<!--
+	//영문/숫자 체크
+	function check_Alpha_Num(input){
+		var err_cnt=0
+		for (var i = 0; i < input.length; i++) {
+			var val = input.charAt(i);
+			if (!((val >= "0" && val <= "9") || (val >= "a" && val <= "z") || (val >= "A" && val <= "Z")))
+			err_cnt ++
+		}
+		if (err_cnt == 0 ) return true;
+		else return false;
+	}
+	
+	//숫자체크(연락처, 휴대폰번호)
+	function onlyNumber() {
+		if (event.keyCode!=13 && ((event.keyCode < 48) || (event.keyCode > 57))){
+			event.returnValue = false;
+			alert('숫자만 입력하세요.');
+		}
+		return true;
+	}
+
+	//아이디 중복확인 popup 호출
+	function idchk(){
+		var id = document.frmReg.id.value;
+		if( id.length < 6 || id.length > 15 ) {
+			alert("아이디를 입력하세요. (6-15자).");
+			document.frmReg.id.focus();
+			return;
+		}
+		if (! check_Alpha_Num(id.toUpperCase()))	{
+			alert("아이디는 영문/숫자 이외의 문자는 허용되지 않습니다. ");
+			document.frmReg.id.focus();
+			return;
+		}
+		window.open("/common/all_site/member/findid.asp?UserId=" + id,"아이디중복검사","width=450,height=320,top=100,left=100,scrollbars=no,resizable=no");
+	}
+
+	//Submit
+	function WriteCheck2(){
+		var Frm = document.frmReg;
+	
+		if ("SUN2235M" ==  ""){
+			// id check 시작
+			if (isEmpty(Frm.id.value)){	alert("ID를 입력해 주십시오");  Frm.id.focus(); return}
+			if (Frm.id.value.length < 6 || Frm.id.value.length > 15 ){	alert("아이디는 6자이상 15이하로 입력하셔야 합니다");  Frm.id.focus(); return}
+			for(i=0;i<Frm.id.value.length;i++) {
+			var a=Frm.id.value.charCodeAt(i);
+				if (a > 128) {	alert("ID 로 한글은 사용하실수 없습니다.");		Frm.id.value="";	Frm.id.focus();		return;	}
+			}
+			if (!(check_Alpha_Num(Frm.id.value))) {	alert("ID는 반드시 영문과 숫자 조합으로 등록하셔야 합니다.");	Frm.id.focus();		return	}
+			if (Frm.idcheck_ok.value != "ok"){alert("ID 중복확인을 하세요."); return;}
+		}
+
+		// 비밀번호 check
+		var cnt = 0;
+		var str = Frm.pwd1.value;
+		for( var i=0; i < str.length; ++i)
+		{
+			if( str.charAt(0) == str.substring( i, i+1 ) ) ++cnt;
+		}		
+		if (Frm.pwd1.value != ""){ 
+			if( cnt == str.length ) {
+				alert("보안상의 이유로 한 문자로 연속된 비밀번호는 허용하지 않습니다.");
+				Frm.pwd1.value="";
+				Frm.pwd2.value="";
+				Frm.pwd2_mobile.value="";
+				Frm.pwd1.focus();
+				return;
+			}
+		}
+
+		if (isEmpty(Frm.pwd1.value)){ alert("비밀번호를 입력해 주십시오");  Frm.pwd1.focus(); return}
+		if (isEmpty(Frm.pwd2.value)&&isEmpty(Frm.pwd2_mobile.value)){ alert("비밀번호 확인을 입력해 주십시오");  Frm.pwd2.focus(); return}
+		if (Frm.pwd2.value != "" && Frm.pwd1.value != Frm.pwd2.value ){
+			alert("비밀번호가 일치하지 않습니다.");
+			Frm.pwd1.value="";
+			Frm.pwd2.value="";
+			Frm.pwd1.focus();
+			return
+		}
+		if (Frm.pwd2_mobile.value != "" && Frm.pwd1.value != Frm.pwd2_mobile.value ){
+			alert("비밀번호가 일치하지 않습니다.");
+			Frm.pwd1.value="";
+			Frm.pwd2_mobile.value="";
+			Frm.pwd1.focus();
+			return
+		}
+		if (Frm.pwd1.value.length < 6 || Frm.pwd1.value.length > 15 ){	alert("비밀번호는 6자이상 15이하로 입력하셔야 합니다");  Frm.pwd1.focus(); return}
+		if (!(check_Alpha_Num(Frm.pwd1.value) == true )) {	alert("비밀번호는 반드시 영문과 숫자 조합으로 등록하셔야 합니다.");	Frm.pwd1.focus();	return	}
+
+		//email 새로들어가는 부분 시작
+		if (isEmpty(Frm.email.value)){ alert("이메일 주소 앞자리를 입력해 주십시오");  Frm.email.focus(); return}
+		if (isEmpty(Frm.email2.value)){ alert("이메일 주소 뒷부분을 입력 또는 선택해 주십시오");  Frm.SelectEmail.focus(); return}
+
+		//핸드폰번호
+		if (isEmpty(Frm.mobile1.value)){ alert("핸드폰 번호 앞자리를 선택해 주십시오");  Frm.mobile1.focus(); return}
+		if (isEmpty(Frm.mobile2.value)){ alert("핸드폰 번호 가운데자리를 입력해 주십시오");  Frm.mobile2.focus(); return}
+		if (isEmpty(Frm.mobile3.value)){ alert("핸드폰 번호 뒷자리를 입력해 주십시오");  Frm.mobile3.focus(); return}
+
+/*
+		//우편번호 주소
+		if (isEmpty(Frm.zip.value)){ alert("우편번호를 입력해 주십시오");  Frm.zip.focus(); return}
+		if (isEmpty(Frm.addr1.value)){ alert("주소를 입력해 주십시오");  Frm.addr1.focus(); return}
+		if (isEmpty(Frm.addr2.value)){ alert("나머지 주소를 입력해 주십시오");  Frm.addr2.focus(); return}
+*/
+		if(mobileChk()){
+			Frm.action = "member_edit_DB.asp";
+			Frm.target = "_self";
+			Frm.submit();
+		}
+	}
+
+	//메일주소 선택
+	function ChangeEmail()
+	{
+		if (document.getElementsByName("SelectEmail")[0].value == "")
+		{
+			document.getElementsByName("email2")[0].readOnly = false;
+			document.getElementsByName("email2")[0].value = "";
+			document.getElementsByName("email2")[0].style.backgroundColor = "#ffffff";
+    	    document.getElementsByName("email2")[0].style.color = "#000000";
+
+		}else{
+			document.getElementsByName("email2")[0].readOnly = true;
+			document.getElementsByName("email2")[0].value = document.getElementsByName("SelectEmail")[0].value ;
+			document.getElementsByName("email2")[0].style.backgroundColor = "#EEEEEE";
+    	    document.getElementsByName("email2")[0].style.color = "#555555";
+		}
+	}
+
+	//기념일,아이정보
+	function fn_ymd(name){
+
+		rValue = new Array()
+		if(name == "Marry"){
+			field_name2 = name+"Month"
+			field_name3 = name+"Day"
+		}else{
+			field_name1 = "baby"+name+"_birth_1"
+			field_name2 = "baby"+name+"_birth_2"
+			field_name3 = "baby"+name+"_birth_3"
+
+			//년도
+			rValue.push('<select name="'+ field_name1 +'">')
+			rValue.push('<option value="">선택</option>')
+			d = new Date
+			nowYear = d.getFullYear()+1;
+			for (i=1995; i <= nowYear ; i++){
+				rValue.push('<option value="'+i+'">'+i+'</option>')
+			}
+			rValue.push('</select> 년 ')
+		}
+	
+		//월
+		rValue.push('<select name="'+ field_name2 +'">')
+		rValue.push('<option value="">선택</option>')
+		for (i=1; i <= 12 ; i++){
+			val_month = select_zero(i,2)
+			rValue.push('<option value="'+val_month+'">'+val_month+'</option>')
+		}
+		rValue.push('</select> 월 ')
+
+		//일
+		rValue.push('<select name="'+ field_name3 +'">')
+		rValue.push('<option value="">선택</option>')
+		for (i=1; i <= 31 ; i++){
+			val_day = select_zero(i,2)
+			rValue.push('<option value="'+val_day+'">'+val_day+'</option>')
+		}
+		rValue.push('</select> 일')
+		document.writeln (rValue.join(""))
+	}
+
+	//이메일 주소 체크 정규식 - 20130409
+	function EmailCheck(mail) {
+		var sMail = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/; 
+		if(sMail.test(mail)===false) {return false;}else{return true;}
+	}
+
+	function nextCodeFnc(chk) {
+		//체크박스 단일선택
+		var obj = document.getElementsByName("exYear");
+		for(var i=0; i<obj.length; i++){
+			if(obj[i].value != chk){
+				obj[i].checked = false;
+			}
+		}
+	}
+//-->
+</SCRIPT>
+<!--Content영역시작-->
+<section>
+	<div id="page-member-info" class="section-member pc-width">
+		<div id="navigation-bar"><script>document.write(navistr)</script></div>
+		<h2 class="page-title"><script>document.write(siteTitle)</script></h2>
+		<!-- mypage 상단 시작 -->
+		
+	<div class="member-nav-wrapper">
+	<ul class="member-nav"> <!-- 나의 쇼핑현황일 때 open-sub-menu class를 추가 -->
+		<li>
+			<a href="/common/process/buy_list.asp">나의 쇼핑현황</a>
+			<div class="member-sub-nav">
+				<a href="/common/process/buy_list.asp">주문내역</a>
+				<a href="/common/process/order_list.asp?iniCategory=0">장바구니</a>
+				<a href="/common/process/wish_list.asp">위시리스트</a>
+				<a href="/common/process/mycoupon.asp">쿠폰</a>
+				<a href="/common/process/mypoint.asp">예치금</a>
+			</div>
+		</li>
+		<li class="active"><a href="/common/all_site/member/member_edit.asp">개인정보수정</a></li>
+		<li><a href="/common/process/baesong_addr.asp">주소록관리</a></li>
+		<li class="hide-mobile"><a href="/common/process/qanda/list.asp">1:1문의</a></li>
+		<li><a href="/common/process/productAfter/myreview_view.asp">나의후기</a></li>
+		<li><a href="/common/all_site/member/member_out.asp">회원탈퇴</a></li>
+	</ul>
+	</div>
+
+	
+		<!-- mypage 상단 끝 -->
+		<form name="frmReg" action="/common/all_site/member/member_edit_DB.asp" method="post">
+		<input type="hidden" name="EditGubun" value="M">
+		<input type="hidden" name ="Mobile_Ori" value="">
+		<input type="hidden" name ="Email_Ori" value="">
+		<input type="hidden" name="certNum" value="">
+		<input type="hidden" name="mobileCert_ok" value="">
+		<div class="contents-wrapper member-info-form">
+			<h2 class="page-sub-title kr">개인정보 수정</h2>
+			<div class="page-content-desc">
+				고객님의 소중한 정보를 관리하세요.
+			</div>
+			
+			<h3 class="block-title">필수정보</h3>
+			
+			<table class="item-table type1 input-form">
+				<tr>
+					<th>아이디</th>
+					<td>
+						<div id="user_id" name="user_id"></div>
+					</td>
+				</tr>
+				<tr>
+					<th>비밀번호</th>
+					<td> 
+						<input type="password" name="pwd1" maxlength="20" class="input1" />
+						<span class="password-check">
+							비밀번호 확인 
+							<input type="password" name="pwd2" maxlength="20" class="input1" />
+						</span>
+					</td>
+				</tr>
+				<tr class="password-check-mobile">
+					<th>비밀번호 확인</th>
+					<td>
+						<input type="password" name="pwd2_mobile" maxlength="20" class="input1" />
+					</td>
+				</tr>
+				<tr>
+					<th>이름</th>
+					<td><div id="user_name" name="user_name"></div>
+				</tr>
+				<tr>
+					<th>이메일</th>
+					<td>
+						<input type="text" name="email" maxlength="45" onkeydown="space_no()" onkeyup="space_no2()" autocomplete="off" class="input1 email1" /> @
+						<input type="text" name="email2"  maxlength="30" onkeydown ="space_no()" onkeyup="space_no2()" class="input1 email2" />
+						<select name="SelectEmail" OnChange="ChangeEmail()" class="type1 email-select">
+							<script type="javascript">make_select_code("select","email","SelectEmail","","^직접입력","","x")</script>
+						</select>
+						<div class="next-line">
+							<input type="checkbox" name="bMail_rcv" value="1" onclick="$(this).parents('td').find('.alter-notice-wrapper').toggle()" />
+							할인쿠폰 및 이벤트 정보 수신 (선택)
+							<span class="alter-notice-wrapper">
+								<span class="alter-notice pc-text">이메일/SMS 수신허용 고객님께 신규회원 할인쿠폰이 발급됩니다.</span>
+								<span class="alter-notice mobile-text">수신허용 고객님께 신규회원 할인쿠폰이 발급</span>
+							</span>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th>휴대폰번호</th>
+					<td>
+						<script language="javascript">make_select_code("select","handphone","mobile1","type1 phone1","^선택","")</script> - 
+						<input type="text" name="mobile2" maxlength="4" onkeypress="onlyNumber()" class="input1 phone2" /> - 
+						<input type="text" name="mobile3" maxlength="4" onkeypress="onlyNumber()" class="input1 phone3" />
+						<span class="btn-type1" onclick="javascript:certSendSms();" style="cursor:pointer;">휴대폰 인증</span>
+						<br />
+						<div class="next-line tm10">
+							<input type="password" name="mobileCertNum" maxlength="10" class="input4" />
+							<span class="btn-type1" onclick="javascript:certNumCheck();" style="cursor:pointer;">인증확인</span>
+						</div>						
+						<span class="option-text">
+							<input type="checkbox" name="bSMS_rcv" value="1" onclick="$(this).parents('td').find('.alter-notice-wrapper').toggle()" /> 할인쿠폰 및 이벤트 정보 수신 (선택)
+						</span>
+						<span class="alter-notice-wrapper">
+							<span class="alter-notice pc-text">이메일/SMS 수신허용 고객님께 신규회원 할인쿠폰이 발급됩니다.</span>
+							<span class="alter-notice mobile-text">수신허용 고객님께 신규회원 할인쿠폰이 발급</span>
+						</span>
+					</td>
+				</tr>
+				<tr>
+					<th>연락처</th>
+					<td>
+						<script type="javascript">make_select_code("select","tel","tel1","type1 phone1","^선택")</script> - 
+						<input type="text" name="tel2" maxlength="4" onkeypress="onlyNumber()" class="input1 phone2" /> - 
+						<input type="text" name="tel3" maxlength="4" onkeypress="onlyNumber()" class="input1 phone3" />
+					</td>
+				</tr>
+				<tr>
+					<th>지번 주소</th>
+					<td>
+						<input type="text" name="zip" readOnly maxlength="7" class="input1 zipcode" />
+						<span class="btn-type1 address" style="cursor:pointer" onClick="ZipSearch('frmReg');">우편번호 찾기</span> <br />
+						<input type="text" name="addr1" readOnly class="input1 address1" />
+						<input type="text" name="addr2" maxlength="60" readOnly class="input1 address2" />
+					</td>
+				</tr>
+				<tr>
+					<th>도로명 주소</th>
+					<td>
+						<input type="text" name="road_zip" readOnly maxlength="7" class="input1 zipcode" />
+						<span class="btn-type1 address_new" style="cursor:pointer" onClick="ZipSearch('frmReg');">우편번호 찾기</span> <br />
+						<input type="text" name="road_addr1" readOnly class="input1 address1" />
+						<input type="text" name="road_addr2" maxlength="60" readOnly class="input1 address2" />
+					</td>
+				</tr>
+			</table>
+		</div>
+		
+		
+		<div class="contents-wrapper member-info-form">
+			<h3 class="block-title">부가정보</h3>
+			<table class="item-table type1 input-form">
+				<!-- 결혼기념일 지금은 사용 안함 -->
+                <div style="display:none;"><script language="javascript">fn_ymd("Marry")</script></div>
+				<tr>
+					<th>직업 선택</th>
+					<td>
+						<script language="javascript">make_select_code("select","job","GeekGoon","type1","0^직업선택")</script>
+					</td>
+				</tr>
+				<tr>
+					<th style="width:77px;">첫째</th>
+					<td>
+						<div class="field-block">
+							반려동물 이름
+							<input type="text" name="baby1_name" class="input1" style="ime-mode:active; "/>
+						</div>
+						<div class="field-block margin-right">
+							<label><input type="radio" name="baby1_sex" value="1"/> 강아지</label>
+							<label><input type="radio" name="baby1_sex" value="2"/> 고양이</label>
+							<label><input type="radio" name="baby1_sex" value="0"/> 기타</label>
+						</div>
+						<div class="field-block">
+							<span>기념일</span>
+							<script language="javascript">fn_ymd("1")</script>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th style="width:77px;">둘째</th>
+					<td>
+						<div class="field-block">
+							반려동물 이름
+							<input type="text" name="baby2_name" class="input1" style="ime-mode:active;"/>
+						</div>
+						<div class="field-block margin-right">
+							<label><input type="radio" name="baby2_sex" value="1"/> 강아지</label>
+							<label><input type="radio" name="baby2_sex" value="2"/> 고양이</label>
+							<label><input type="radio" name="baby2_sex" value="0"/> 기타</label>
+						</div>
+						<div class="field-block">
+							<span>기념일</span>
+							<script language="javascript">fn_ymd("2")</script> 
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th style="width:77px;">셋째</th>
+					<td>
+						<div class="field-block">
+							반려동물 이름
+							<input type="text" name="baby3_name" class="input1" style="ime-mode:active;" />
+						</div>
+						<div class="field-block margin-right">
+							<label><input type="radio" name="baby3_sex" value="1"/> 강아지</label>
+							<label><input type="radio" name="baby3_sex" value="2"/> 고양이</label>
+							<label><input type="radio" name="baby3_sex" value="0"/> 기타</label>
+						</div>
+						<div class="field-block">
+							<span>기념일</span>
+							<script language="javascript">fn_ymd("3")</script>
+						</div>
+					</td>
+				</tr>
+			</table>		
+			<p>&nbsp;</p>
+			<table class="item-table type1 input-form">
+				<tr>
+					<th>개인정보 유효기간</th>
+					<td>
+						<script>make_select_code("checkbox","expireYear","exYear","null","","","nextCodeFnc(this)","chk","")</script>
+						<span class="alter-notice-wrapper">
+							<span class="alter-notice pc-text">선택하지 않을 경우 관련 법령에 의해 1년 자동 지정</span>
+							<span class="alter-notice mobile-text">선택하지 않을 경우 1년 자동 지정</span>
+						</span>
+					</td>
+				</tr>
+			</table>
+			
+			<div class="action-buttons">
+				<span class="cancel type1" onClick="location.href='/'" style="cursor:pointer;">취소</span>
+				<span class="ok type2" onClick="WriteCheck2();" style="cursor:pointer;">등록</span>
+			</div>
+		</div>
+		</form>
+	</div>
+</section>
+<!--Content영역종료-->
+<div style="display:none;">
+	<!--풋터영역시작-->
+</div>
+<footer>
+	<div id="sitemap" class="only-pc">
+		<div class="pc-width">
+			<div class="inner-div clearfix">
+				<div class="section">
+					<h3>BRAND</h3>
+					<ul>
+						<li onclick="location.href='/common/process/shopmain.asp?iniCategory=2&thisCategory=54'" style="cursor:pointer;">BEST BREED</li>
+						<li onclick="location.href='/common/process/shopmain.asp?iniCategory=2&thisCategory=20'" style="cursor:pointer;">PRODOGGIE</li>
+						<li onclick="location.href='/common/process/shopmain.asp?iniCategory=2&thisCategory=74'" style="cursor:pointer;">WEGONO</li>
+						<li onclick="location.href='/common/process/shopmain.asp?iniCategory=2&thisCategory=22'" style="cursor:pointer;">MARS ALCOSO</li>
+						<li onclick="location.href='/common/process/shopmain.asp?iniCategory=2&thisCategory=73'" style="cursor:pointer;">DIG & ROLL</li>
+						<li onclick="location.href='/common/process/shopmain.asp?iniCategory=2&thisCategory=21'" style="cursor:pointer;">KOMPLETT</li>
+						<li onclick="location.href='/common/process/shopmain.asp?iniCategory=2&thisCategory=82'" style="cursor:pointer;">ICELAND PET</li>
+						<li onclick="location.href='/common/process/shopmain.asp?iniCategory=2&thisCategory=101'" style="cursor:pointer;">CARNA4</li>
+					</ul>
+				</div>
+				<div class="section">
+					<h3>SHOP</h3>
+					<ul>
+						<li onclick="location.href='/common/process/shopmain.asp?iniCategory=24&thisCategory='" style="cursor:pointer;">사료</li>
+						<li onclick="location.href='/common/process/shopmain.asp?iniCategory=87&thisCategory='" style="cursor:pointer;">간식</li>
+						<li onclick="location.href='/common/process/shopmain.asp?iniCategory=25&thisCategory='" style="cursor:pointer;">배변용품</li>
+						<li onclick="location.href='/common/process/shopmain.asp?iniCategory=27&thisCategory='" style="cursor:pointer;">미용</li>
+						<li onclick="location.href='/common/process/shopmain.asp?iniCategory=28&thisCategory='" style="cursor:pointer;">리빙/외출</li>
+						<li onclick="location.href='/common/process/shopmain.asp?iniCategory=76&thisCategory='" style="cursor:pointer;">고양이</li>
+					</ul>
+				</div>
+				<div class="section">
+					<h3>EVENT</h3>
+					<ul>
+						<!-- li onclick="location.href='/common/all_site/Notice/event.asp'" style="cursor:pointer;">샘플신청</li -->
+						<li onclick="location.href='/common/all_site/Notice/event.asp'" style="cursor:pointer;">진행중 EVENT</li>
+						<li onclick="location.href='/common/all_site/Notice/notice.asp'" style="cursor:pointer;">당첨자 발표</li>
+						<li onclick="location.href='/common/process/productAfter/review.asp'" style="cursor:pointer;">BEST REVIEW</li>
+					</ul>
+				</div>
+				<div class="section">
+					<h3>MEMBER</h3>
+					<ul>
+						<li onclick="location.href='/common/all_site/member/join_agreement.asp'" style="cursor:pointer;">회원가입</li>
+						<li onclick="location.href='/common/all_site/member/login.asp'" style="cursor:pointer;">로그인</li>
+						<li onclick="location.href='/common/all_site/member/searchidinfo.asp?ProcessGubun=A'" style="cursor:pointer;">아이디 찾기</li>
+						<li onclick="location.href='/common/all_site/member/searchidinfo.asp?ProcessGubun=B'" style="cursor:pointer;">비밀번호 찾기</li>
+					</ul>
+				</div>
+				<div class="section">
+					<h3>CONTACT</h3>
+					<ul>
+						<li onclick="location.href='/common/all_site/Notice/notice.asp'" style="cursor:pointer;">공지사항</li>
+						<li onclick="location.href='/common/all_site/faq.asp'" style="cursor:pointer;">FAQ</li>
+						<li onclick="location.href='/common/process/qanda/list.asp'" style="cursor:pointer;">Q&A</li>
+						<li onclick="location.href='/about/aboutus.asp'" style="cursor:pointer;">제휴문의</li>
+					</ul>
+				</div>
+				<div class="cs-center">
+					<img src="/static/img/footer/img_contact.png" alt="CONTACT INFO - NO SPAM" />
+					<div class="sns-icons">
+						<span class="youtubu"><a href="https://www.youtube.com/channel/UCHg6I0zobz8sKK6HOErzLzg/featured?disable_polymer=1" target="_blank"><img src="/static/img/footer/youtubu_icon.png" alt="facebook" style="width:38px;"></a></span>
+						<span class="facebook"><a href="https://post.naver.com/welovemontraum" target="_blank"><img src="/static/img/footer/naver_icon.png" alt="facebook" style="width:38px;"></a></span>
+						<span class="facebook"><a href="https://www.facebook.com/montraum2017" target="_blank"><img src="/static/img/footer/facebook_icon.png" alt="facebook"></a></span>
+						<span class="instar"><a href="https://www.instagram.com/montraum_official" target="_blank"><img src="/static/img/footer/instargram_icon.png" alt="instargram"></a></span>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<!-- { pc 와 mobile 화면 분기 } -->
+	<div class="common-mobile-bottom">
+		<div class="ico ico-news" onclick="location.href='/common/all_site/press/press.asp'" style="cursor:pointer;">NEWS</div>
+		<div class="ico ico-review" onclick="location.href='/common/process/productAfter/review.asp'" style="cursor:pointer;">REVIEW</div>
+	</div>
+	<div id="copyright" class="pc-width clearfix only-pc">
+		<img class="ci" src="/static/img/footer/img-ci.png" alt="MONTRAUM" />
+
+		<div class="copyright-text">
+			<ul>
+				<li>상호 : (주)쁘띠엘린 | </li>
+				<li>쇼핑몰 : 몬트라움 | </li>
+				<li>대표이사 : 표순규 | </li>
+				<li>개인정보관리 및 청소년 보호 책임자 : 김홍식</li>
+				<li>
+					<a href="/common/all_site/help/privacy.asp">개인정보 처리방침 &gt;</a>
+					<a href="/common/all_site/help/agreement2.asp">이용약관 ></a>
+				</li>
+			</ul>
+			<ul>
+				<li>사업자등록번호 : 108-81-91594 | </li>
+				<li>통신판매사업신고 : 제 2013-서울구로-0728호</li>
+			</ul>
+			<ul>
+				<li>주소 : 서울특별시 구로구 디지털로 33길 48 대륭포스트타워 7차 13층  </li>
+				<li><a href="http://www.ftc.go.kr/info/bizinfo/communicationViewPopup.jsp?wrkr_no=1088191594" target="_blank">사업자정보 확인 &gt;</a></li>
+			</ul>
+			<p class="escrow"><strong>에스크로 서비스</strong> | 안전거래를 위해 (주)이니시스의 구매안전 (에스크로)에 가입하여 서비스를 제공하고 있습니다.)
+				<a href="javascript:f_escrowKsnet();">가입사실 확인</a> &gt;</p>
+		</div>
+
+		<div class="family-site-social">
+			<!--div class="select-box">
+				<div class="default">FAMILY SITE</div>
+			</div-->
+			<!-- select class="select-box">
+				<option value="">FAMILY SITE</option>
+				<option value="http://www.einebaum.com">아이너바움</option>
+				<option value="http://www.makenmerk.com">메켄메르크</option>
+				<option value="http://www.botanicaltherapy.co.kr">보타니컬테라피</option>
+				<option value="http://www.marcusnmarcus.co.kr">마커스앤마커스</option>
+				<option value="http://www.moisnlois.com">모이스앤로이스</option>
+				<option value="http://www.deglingos.co.kr">데글링고스</option>
+				<option value="http://www.cloudbkorea.co.kr">클라우드비</option>
+				<option value="http://www.donodono.co.kr">도노도노</option>
+			</select -->
+			<!--div class="sns_logo">
+				<ul>
+					<li><img src="/static/img/footer/blt_social_01.png" alt="Service" /></li>
+					<li><img src="/static/img/footer/blt_social_02.png" alt="What" /></li>
+					<li><img src="/static/img/footer/blt_social_03.png" alt="FACEBOOK" /></li>
+					<li><img src="/static/img/footer/blt_social_04.png" alt="BLOG?" /></li>
+					<li><img src="/static/img/footer/blt_social_05.png" alt="KAKAO TALK" /></li>
+				</ul>
+			</div-->
+		</div>
+
+	</div>
+	<div id="copyright-mobile" class="only-mobile">
+		<div class="clearfix copyright-top">
+			<img class="ci" src="/static/img/footer/img-ci.png" alt="MONTRAUM" />
+
+			<div class="cs-center">
+				<p><span class="text1">CS CENTER</span> <a href="tel:1644-3955" class="phone-number">1644-3955</a></p>
+				<p class="comment">상담가능시간 10:00~17:00 (토요일/공휴일 휴무)</p>
+			</div>
+
+			<div class="family-site-social">
+				<div class="bottom-sns">
+					<ul>
+						<li><a href="https://www.youtube.com/channel/UCHg6I0zobz8sKK6HOErzLzg/featured?disable_polymer=1" target="_blank"><img src="/static/img/footer/youtubu_icon.png" style="width:10vw;padding-right:.56vw" alt="youtubu" /></a></li>
+						<li><a href="https://m.post.naver.com/profile.nhn?authorId=welovemontraum" target="_blank"><img src="/static/img/footer/naver_icon.png" style="width:10vw;" alt="naver post" /></a></li>
+						<li><a href="https://m.facebook.com/montraum2017" target="_blank"><img src="/static/img/footer/facebook_icon.png" style="width:10.55vw;" alt="facebook" /></a></li>
+						<li><a href="https://www.instagram.com/montraum_official" target="_blank"><img src="/static/img/footer/instargram_icon.png" style="width:10.55vw;" alt="instargram" /></a></li>
+					</ul>
+				</div>
+
+				<!--div class="select-box">
+					<div class="default">FAMILY SITE</div>
+				</div-->
+				<!-- select class="select-box">
+					<option value="">FAMILY SITE</option>
+					<option value="http://www.einebaum.com">아이너바움</option>
+					<option value="http://www.makenmerk.com">메켄메르크</option>
+					<option value="http://www.botanicaltherapy.co.kr">보타니컬테라피</option>
+					<option value="http://www.marcusnmarcus.co.kr">마커스앤마커스</option>
+					<option value="http://www.moisnlois.com">모이스앤로이스</option>
+					<option value="http://www.deglingos.co.kr">데글링고스</option>
+					<option value="http://www.cloudbkorea.co.kr">클라우드비</option>
+					<option value="http://www.donodono.co.kr">도노도노</option>
+				</select -->
+
+				<!--div>
+					<ul>
+						<li><img src="/static/img/footer/blt_social_01.png" alt="Service" /></li>
+						<li><img src="/static/img/footer/blt_social_02.png" alt="What" /></li>
+						<li><img src="/static/img/footer/blt_social_03.png" alt="FACEBOOK" /></li>
+						<li><img src="/static/img/footer/blt_social_04.png" alt="BLOG?" /></li>
+						<li><img src="/static/img/footer/blt_social_05.png" alt="KAKAO TALK" /></li>
+					</ul>
+				</div-->
+			</div>
+		</div>
+		<div class="copyright-text">
+			<ul>
+				<li>상호 : (주)쁘띠엘린 | </li>
+				<li>쇼핑몰 : 몬트라움 | </li>
+				<li>대표이사 : 표순규</li>
+				<li>개인정보관리 및 청소년 보호 책임자 : 김홍식</li>
+				<li>
+					<a href="/common/all_site/help/privacy.asp">개인정보 처리방침 &gt;</a>
+					<a href="/common/all_site/help/agreement2.asp">이용약관 ></a>
+				</li>
+			</ul>
+			<ul>
+				<li>사업자등록번호 : 108-81-91594</li>
+				<li>통신판매사업신고 : 제 2013-서울구로-0728호 </li>
+			</ul>
+			<ul>
+				<li>주소 : 서울특별시 구로구 디지털로 33길 48 대륭포스트타워 7차 13층 </li>
+				<li><a href="http://www.ftc.go.kr/info/bizinfo/communicationViewPopup.jsp?wrkr_no=1088191594" target="_blank">사업자정보 확인 &gt;</a></li>
+			</ul>
+			<p class="escrow">
+				<strong>에스크로 서비스</strong> | 안전거래를 위해 (주)이니시스의 구매안전 (에스크로)에<br />
+				가입하여 서비스를 제공하고 있습니다.)
+				<a href="javascript:f_escrowKsnet();">가입사실 확인</a> &gt;</p>
+		</div>
+		<div class="mobile-quick">
+			<div class="log-btn">
+				
+				<a href="/common/all_site/member/logout.asp?inicategory=0"><div class="logout-btn only-mobile">logout</div></a>
+				
+			</div>
+			<div class="go-top"><p>TOP</p></div>
+		</div>
+	</div>
+
+</footer>
+<!--풋터영역종료-->
+</div>
+<div id="quickmenu" name="quickmenu" class="only-pc">
+	<ul class="quick_banner">
+		<a href="/common/all_site/Notice/EventView.asp?idx=162"><li class="nosmell"></li></a>
+		<a href="/common/all_site/Notice/EventView.asp?idx=136"><li class="bestbreed"></li></a>
+		<a href="/common/all_site/Notice/EventView.asp?idx=350"><li class="firstbuying"></li></a>
+		<a href="/common/all_site/Notice/EventView.asp?idx=462"><li class="sale"></li></a>
+
+	</ul>
+	<div class="viewed">
+		<a href="javascript:gdscroll(-86)" onfocus=blur()><p><img src="/static/img/common/quickmenu_arrowup.png"></p></a>
+		<p class="tit">VIEWED <span id="num" name="num"></span></p>
+		<div id="TODAYLIST2" name="TODAYLIST2" style="height:255px;overflow:hidden;"></div>
+		<a href="javascript:gdscroll(86)" onfocus=blur()><p><img src="/static/img/common/quickmenu_arrowdown.png"></p></a>
+	</div>
+	<div class="go-top"><p>TOP</p></div>
+</div>
+<script type="text/javascript">
+	//퀵메뉴
+	$(function() {
+		var UI = {
+			init: function() {this.quickMenuFn();},
+			initialize: function() {
+				this.id = {
+					target: {quick: '#quickmenu'}
+				};
+				this.init();
+			},
+			quickMenuFn: function() {
+				var quick = $(this.id.target.quick);
+				var qTop = parseInt(quick.css('top'));
+
+				$(window).scroll(function() {
+					var winTop = $(window).scrollTop();
+					var preTop = qTop + winTop;
+					var newTop = winTop + qTop - (parseInt(quick.css('height'))+qTop-$(window).height()+10);
+
+					if (newTop <= qTop) {
+						newTop = qTop;
+					}
+					quick.stop().animate({top: newTop}, 400);
+				})
+			},
+
+			scrollTop: function(eTarget, speed) {
+				var speed = speed || null;
+				eTarget.on('click', function() {
+					$('html, body').animate({
+						scrollTop: $("body").offset().top
+					}, speed)
+				})
+			}
+		};
+		$(function() {
+			UI.initialize();
+		})
+	})
+</script>
+
+<!-- 모바일 사이드바 170621-최문영작업 -->
+<div id="sidebar2">
+	<div class="top">
+		<img src="/static/img/common/img_sidebar_logo.png" alt="MONTRAUM" class="ci"/>
+		<div class="buttons">
+			
+			<a href="/common/all_site/member/logout.asp?inicategory=0">로그아웃</a>
+			<a href="/common/process/buy_list.asp?iniCategory=0">내정보</a>
+			
+		</div>
+	</div>
+
+	<div class="block-1">
+		<ul>
+			<a href="/common/process/shopbest.asp?category_etc_id=1&iniCategory=0"><li class="ico ico-best" style="background-size:initial;">BEST</li></a>
+			<a href="/common/all_site/Notice/event.asp"><li class="ico ico-event" style="background-size:initial;">EVENT</li></a>
+			<a href="/about/members.asp"><li class="ico ico-membership" style="background-size:initial;">MEMBERSHIP</li></a>
+		</ul>
+	</div>
+
+	<div class="tab-contents">
+		<div class="tab-header">
+			<ul class="clearfix">
+				<li class="tab1 active" data-target="content1">CATEGORY</li>
+				<li class="tab2" data-target="content2">BRAND</li>
+				<li class="tab3" data-target="content3">COMMUNITY</li>
+			</ul>
+		</div>
+
+		<div class="tab-content">
+			<!-- categoty -->
+			<div class="content1 active">
+				<ul class="cate-content">
+					<li class="cate-list-skin open">
+						<h3 class="depth-1" onclick="allCateClose(0);$(this).parent().find('.depth-2').slideToggle();"><p>강아지 사료</p></h3>
+						<div class="depth-2" name="cateList">
+							
+							<div><a href="/common/process/shopmain.asp?iniCategory=24&thisCategory=29">그레인프리</a></div>
+							
+							<div><a href="/common/process/shopmain.asp?iniCategory=24&thisCategory=57">홀리스틱</a></div>
+							
+							<div><a href="/common/process/shopmain.asp?iniCategory=24&thisCategory=60">연령별</a></div>
+							
+							<div><a href="/common/process/shopmain.asp?iniCategory=24&thisCategory=95">프리미엄</a></div>
+							
+							<div><a href="/common/process/shopmain.asp?iniCategory=24&thisCategory=108">간식&영양제</a></div>
+							
+						</div>
+					</li>
+					<li class="cate-list-out">
+						<h3 class="depth-1" onclick="allCateClose(2);$(this).parent().find('.depth-2').slideToggle();"><p>고양이 사료</p></h3>
+						<div class="depth-2" name="cateList">
+							
+							<div><a href="/common/process/shopmain.asp?iniCategory=107&thisCategory=109">그레인프리</a></div>
+							
+							<div><a href="/common/process/shopmain.asp?iniCategory=107&thisCategory=110">홀리스틱</a></div>
+							
+							<div><a href="/common/process/shopmain.asp?iniCategory=107&thisCategory=111">연령별</a></div>
+							
+							<div><a href="/common/process/shopmain.asp?iniCategory=107&thisCategory=114">프리미엄</a></div>
+							
+							<div><a href="/common/process/shopmain.asp?iniCategory=107&thisCategory=112">간식&영양제</a></div>
+							
+						</div>
+					</li>
+					<li class="cate-list-bedding">
+						<h3 class="depth-1" onclick="allCateClose(1);$(this).parent().find('.depth-2').slideToggle();"><p>배변용품</p></h3>
+						<div class="depth-2" name="cateList">
+							
+							<div><a href="/common/process/shopmain.asp?iniCategory=25&thisCategory=30">트레이닝 패드</a></div>
+							
+							<div><a href="/common/process/shopmain.asp?iniCategory=25&thisCategory=31">노스멜 패드</a></div>
+							
+							<div><a href="/common/process/shopmain.asp?iniCategory=25&thisCategory=115">피크닉 패드</a></div>
+							
+							<div><a href="/common/process/shopmain.asp?iniCategory=25&thisCategory=117">퍼펙션 패드</a></div>
+							
+							<div><a href="/common/process/shopmain.asp?iniCategory=25&thisCategory=121">아로마 패드</a></div>
+							
+							<div><a href="/common/process/shopmain.asp?iniCategory=25&thisCategory=96">원터치 배변판</a></div>
+							
+						</div>
+					</li>
+					<li class="cate-list-living">
+						<h3 class="depth-1" onclick="allCateClose(3);$(this).parent().find('.depth-2').slideToggle();"><p>미용</p></h3>
+						<div class="depth-2" name="cateList">
+							
+							<div><a href="/common/process/shopmain.asp?iniCategory=27&thisCategory=102">콤</a></div>
+							
+							<div><a href="/common/process/shopmain.asp?iniCategory=27&thisCategory=55">코트킹</a></div>
+							
+							<div><a href="/common/process/shopmain.asp?iniCategory=27&thisCategory=52">브러쉬</a></div>
+							
+							<div><a href="/common/process/shopmain.asp?iniCategory=27&thisCategory=62">가위</a></div>
+							
+							<div><a href="/common/process/shopmain.asp?iniCategory=27&thisCategory=119">목욕타올</a></div>
+							
+							<div><a href="/common/process/shopmain.asp?iniCategory=27&thisCategory=105">발톱깎이</a></div>
+							
+						</div>
+					</li>
+					<li class="cate-list-toy">
+						<h3 class="depth-1" onclick="allCateClose(4);$(this).parent().find('.depth-2').slideToggle();"><p>리빙/외출</p></h3>
+						<div class="depth-2" name="cateList">
+							
+							<div><a href="/common/process/shopmain.asp?iniCategory=28&thisCategory=99">펫 백팩</a></div>
+							
+							<div><a href="/common/process/shopmain.asp?iniCategory=28&thisCategory=81">펫 슬링백</a></div>
+							
+							<div><a href="/common/process/shopmain.asp?iniCategory=28&thisCategory=86">듀얼마약방석</a></div>
+							
+							<div><a href="/common/process/shopmain.asp?iniCategory=28&thisCategory=43">메모리폼 침대</a></div>
+							
+							<div><a href="/common/process/shopmain.asp?iniCategory=28&thisCategory=120">넥카라</a></div>
+							
+							<div><a href="/common/process/shopmain.asp?iniCategory=28&thisCategory=104">장난감</a></div>
+							
+						</div>
+					</li>
+					<li class="cate-list-cat">
+						<h3 class="depth-1" onclick="allCateClose(5);$(this).parent().find('.depth-2').slideToggle();"><p>고양이 용품</p></h3>
+						<div class="depth-2" name="cateList">
+							
+							<div><a href="/common/process/shopmain.asp?iniCategory=76&thisCategory=113">화장실</a></div>
+							
+							<div><a href="/common/process/shopmain.asp?iniCategory=76&thisCategory=78">모래</a></div>
+							
+							<div><a href="/common/process/shopmain.asp?iniCategory=76&thisCategory=79">미용</a></div>
+							
+						</div>
+					</li>
+				</ul>
+			</div>
+			<!-- //categoty -->
+
+			<!-- brand -->
+			<div class="content2">
+				<ul class="cate-content">
+					<li class="cate-list open">
+						<div class="depth">
+							<div><a href="/common/process/shopmain.asp?iniCategory=2&thisCategory=54">BEST BREED <span class="info">(Holistic Pet Nutrition)</span></a></div>
+						</div>
+						<div class="depth">
+							<div><a href="/common/process/shopmain.asp?iniCategory=2&thisCategory=20">PRODOGGIE <span class="info">(Smart Training Pad)</span></a></div>
+						</div>
+						<div class="depth">
+							<div><a href="/common/process/shopmain.asp?iniCategory=2&thisCategory=74">WEGONO <span class="info">(Easy&Trendy Pet’s Outdoor Goods)</span></a></div>
+						</div>
+						<div class="depth">
+							<div><a href="/common/process/shopmain.asp?iniCategory=2&thisCategory=22">MARS ALCOSO <span class="info">(Masterpiece Grooming Tools)</span></a></div>
+						</div>
+						<div class="depth">
+							<div><a href="/common/process/shopmain.asp?iniCategory=2&thisCategory=73">DIG & ROLL <span class="info">(Ideal Cat Brand)</span></a></div>
+						</div>
+						<div class="depth">
+							<div><a href="/common/process/shopmain.asp?iniCategory=2&thisCategory=21">KOMPLETT <span class="info">(PET BED)</span></a></div>
+						</div>
+						<div class="depth">
+							<div><a href="/common/process/shopmain.asp?iniCategory=2&thisCategory=82">ICELAND PET <span class="info">(The Clean Power of Nature)</span></a></div>
+						</div>
+						<div class="depth">
+							<div><a href="/common/process/shopmain.asp?iniCategory=2&thisCategory=101">CARNA4 <span class="info">(Hand Crafted Pet Food)</span></a></div>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<!-- //brand -->
+
+			<!-- community -->
+			<div class="content3">
+				<ul class="cate-content">
+					<li class="cate-list open">
+						<div class="depth">
+							<div><a href="/common/process/productAfter/review.asp">Product Review</a></div>
+							<div><a href="/common/all_site/Notice/notice.asp">Notice</a></div>
+							<div><a href="/common/all_site/faq.asp">FAQ</a></div>
+							<div><a href="/common/process/qanda/list.asp">1:1 QNA</a></div>
+							<div><a href="/about/members.asp">Membership</a></div>
+							<div><a href="/common/all_site/press/press.asp">News</a></div>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<!-- //community -->
+
+		</div>
+	</div>
+	<div class="viewed-items">
+		<h3>VIEWED (<span id="viewedCnt"></span>)</h3>
+		<div class="viewed-item-list" id="TODAYLIST"></div>
+	</div>
+</div>
+<!--사이드바 종료-->
+
+<div id="body-mask" onclick="closeSidebar();"></div>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$(".select-box").change(function(){
+			if($(this).val() != ""){
+				$("#familyFrm").attr("action",$(this).val());
+				$("#familyFrm").submit();
+			}
+		});
+	});
+
+	function f_escrowKsnet(){
+		//이니시스 에스크로 가입확인
+		window.open("https://mark.inicis.com/mark/escrow_popup.php?mid=monvatesc0","mark","scrollbars=no,resizable=no,width=565,height=683");
+	}
+
+
+	var endnum=0
+
+	if(getCookie("TodayGoods") != ""){
+		TodayGoods = getCookie("TodayGoods").split(",")
+		TodayGoods.unique();
+		endnum = TodayGoods.length
+	}else{
+		TodayGoods = new Array()
+		endnum = 0;
+	}
+	document.getElementById("viewedCnt").innerText = endnum;
+	document.getElementsByName("num")[0].innerText = "("+endnum+")개"
+
+	if (endnum>0) {
+		var sumText2 ="";
+		for (var i=0 ; i<endnum ; i++) {
+
+			if (TodayGoods[i].split("^").length==4 && TodayGoods[i].indexOf("category_site")==-1) {
+				if (TodayGoods[i].split("^")[1].substring(0,1) == "P")
+				{
+					sumText = "<div class=\"item\"><img src='/_vir0001/product_img/middle/"+ TodayGoods[i].split("^")[1] + "' "
+					sumText2 += "<li><img width='80' width='80' src='/_vir0001/product_img/middle/"+ TodayGoods[i].split("^")[1] + "' style='cursor:pointer;' onclick=\"location.href='/common/process/shopview.asp?pack_content_id="+ TodayGoods[i].split("^")[0] +"&thisCategory="+TodayGoods[i].split("^")[3]+"'\"></li> "
+				}else{
+					sumText = "<div class=\"item\"><img src='/_vir0001/product_img/ini_product/middle/"+ TodayGoods[i].split("^")[1] + "' "
+					sumText2 += "<li><img width='80' width='80' src='/_vir0001/product_img/ini_product/middle/"+ TodayGoods[i].split("^")[1] + "' style='cursor:pointer;' onclick=\"location.href='/common/process/shopview.asp?pack_content_id="+ TodayGoods[i].split("^")[0] +"&thisCategory="+TodayGoods[i].split("^")[3]+"'\"></li> "
+				}
+
+				sumText = sumText + " onclick=\"location.href='/common/process/shopview.asp?pack_content_id="+ TodayGoods[i].split("^")[0] +"&thisCategory="+TodayGoods[i].split("^")[3]+"'\" "
+				sumText = sumText + "></div>"
+
+
+
+				document.getElementById("TODAYLIST").innerHTML = document.getElementById("TODAYLIST").innerHTML + sumText
+			}
+		}
+		document.getElementById("TODAYLIST2").innerHTML = "<ul class='list'>" + sumText2 + "</ul>"
+
+	}
+	function gdscroll(gap)
+	{
+		var gdscroll = document.getElementsByName('TODAYLIST2')[0];
+		gdscroll.scrollTop += gap;
+	}
+
+</script>
+
+<form name="familyFrm" id="familyFrm" action="" target="_blank"></form>
+
+
+<script type="text/javascript">
+	$(function(){
+		$(".cate-content li .depth-1").click(function(){
+			if( $(this).parent().hasClass('open') ) {
+				$(this).parent().removeClass('open');
+			} else {
+				$(this).parents('.cate-content').find(".open").removeClass('open');
+				$(this).parent().addClass('open');
+			}
+		});
+	})
+
+	// TAB 의 동작은 스크립트
+	$(function(){
+		$(".tab-contents .tab-header li").click(function(){
+			var target = $(this).attr('data-target');
+			$(this).parent().find("li.active").removeClass('active');
+			$(this).addClass('active');
+			$(this).closest('.tab-contents').find('.tab-content div.active').removeClass('active');
+			$(this).closest('.tab-contents').find("."+target).addClass('active');
+		});
+	});
+
+	function allCateClose(idx) {
+		var cateList = document.getElementsByName("cateList");
+		for(i=0;i<cateList.length;i++){
+			if(idx != i) {
+				cateList[i].style.display = "none";
+			}
+		}
+	}
+</script>
+<script language="javascript" src="/_vir0001/code.js"></script>
+
+
+<!-- AceCounter Log Gathering Script V.7.5.2017020801 -->
+<script language='javascript'>
+	var _AceGID=(function(){var Inf=['gtc14.acecounter.com','8080','AS4A42151972793','AW','0','NaPm,Ncisy','ALL','0']; var _CI=(!_AceGID)?[]:_AceGID.val;var _N=0;var _T=new Image(0,0);if(_CI.join('.').indexOf(Inf[3])<0){ _T.src =( location.protocol=="https:"?"https://"+Inf[0]:"http://"+Inf[0]+":"+Inf[1]) +'/?cookie'; _CI.push(Inf);  _N=_CI.length; } return {o: _N,val:_CI}; })();
+	var _AceCounter=(function(){var G=_AceGID;var _sc=document.createElement('script');var _sm=document.getElementsByTagName('script')[0];if(G.o!=0){var _A=G.val[G.o-1];var _G=(_A[0]).substr(0,_A[0].indexOf('.'));var _C=(_A[7]!='0')?(_A[2]):_A[3];var _U=(_A[5]).replace(/\,/g,'_');_sc.src=(location.protocol.indexOf('http')==0?location.protocol:'http:')+'//cr.acecounter.com/Web/AceCounter_'+_C+'.js?gc='+_A[2]+'&py='+_A[4]+'&gd='+_G+'&gp='+_A[1]+'&up='+_U+'&rd='+(new Date().getTime());_sm.parentNode.insertBefore(_sc,_sm);return _sc.src;}})();
+</script>
+<noscript><img src='http://gtc14.acecounter.com:8080/?uid=AS4A42151972793&je=n&' border='0' width='0' height='0' alt=''></noscript>
+<!-- AceCounter Log Gathering Script End -->
+
+
+<!-- WIDERPLANET  SCRIPT START 2018.5.21 (공통) (* 공통 태그는 타 태그(아이템, 장바구니, 구매완료, 전환 완료)보다 하단에 위치하여야 합니다. ) -->
+<div id="wp_tg_cts" style="display:none;"></div>
+<script type="text/javascript">
+var wptg_tagscript_vars = wptg_tagscript_vars || [];
+wptg_tagscript_vars.push(
+(function() {
+	return {
+		wp_hcuid:"",   /*고객넘버 등 Unique ID (ex. 로그인  ID, 고객넘버 등 )를 암호화하여 대입.
+				*주의 : 로그인 하지 않은 사용자는 어떠한 값도 대입하지 않습니다.*/
+		ti:"41190",	/*광고주 코드 */
+		ty:"Home",	/*트래킹태그 타입 */
+		device:"web"	/*디바이스 종류  (web 또는  mobile)*/
+
+	};
+}));
+</script>
+<script type="text/javascript" async src="//cdn-aitg.widerplanet.com/js/wp_astg_4.0.js"></script>
+<!-- WIDERPLANET  SCRIPT START 2018.5.21 (공통)-->
+
+
+<!-- Enliple Common Tracker v3.6 [공용] start -->
+<script type="text/javascript">
+<!--
+function mobRf() {
+    var rf = new EN();
+    rf.setData("userid", "montraum");
+    rf.setSSL(true);
+    rf.sendRf();
+}
+//-->
+</script>
+<!-- Enliple Common Tracker v3.6 [공용] end -->
+
+
+
+<script src="https://cdn.megadata.co.kr/js/en_script/3.6/enliple_min3.6.js" defer="defer" onload="mobRf();"></script>
+
+
+
+<!-- ADN Tracker[공통] start -->
+<script type="text/javascript">
+var adn_param = adn_param || [];
+adn_param.push([{ 	
+ ui:'101877',
+ ut:'Home'
+}]);
+</script>
+<script type="text/javascript" async src="//fin.rainbownine.net/js/adn_tags_1.0.0.js"></script>
+<!-- ADN Tracker[공통] end -->
+
+<!-- ADN 크로징 설치  start -->
+<script type="text/javascript">
+var adn_panel_param = adn_panel_param || [];
+adn_panel_param.push([{
+ ui:'101877',	
+ ci:'1018770001',
+ gi:'21528'
+}]);
+</script>
+<script type="text/javascript" async src="//fin.rainbownine.net/js/adn_closingad_1.1.1.js"></script>
+<!-- ADN 크로징 설치 end -->
+
+<!-- ADN 크로징 설치 반응형 start -->
+<script type="text/javascript">
+var adn_mobile_panel_param = adn_mobile_panel_param || [];
+adn_mobile_panel_param.push([{
+ ui:'101877',  
+ ci:'1018770002',
+ gi:'21530'
+}]);
+</script>
+<script type="text/javascript" async src="//fin.rainbownine.net/js/adn_mobile_closingad_1.1.2.js"></script>
+<!-- ADN 크로징 설치 end -->
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WDLJW3X"
+		height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+</body>
+</html>
+<script language="javascript">
+<!--	
+	form = document.frmReg;
+
+form.Mobile_Ori.value="010-5191-6619"
+form.Email_Ori.value="sun2235m@naver.com"
+
+user_name.innerText="이선민"
+user_id.innerText="sun2235m"
+
+form.email.value="sun2235m"
+form.email2.value="naver.com"
+form.SelectEmail.value="naver.com"
+form.email2.style.backgroundColor = "#EEEEEE"
+
+form.zip.value=""
+form.addr1.value=""
+form.addr2.value=""
+
+
+	form.road_zip.value = ""
+
+
+form.road_addr1.value=""
+form.road_addr2.value=""
+form.tel1.value=""
+form.tel2.value=""
+form.tel3.value=""
+form.mobile1.value="010"
+form.mobile2.value="5191"
+form.mobile3.value="6619"
+check_Rs(form.bMail_rcv,"0")
+check_Rs(form.bSMS_rcv,"0")
+check_Rs(form.exYear,"1");
+
+form.MarryMonth.value=""
+form.MarryDay.value=""
+form.GeekGoon.value="0"
+
+form.baby1_name.value=""
+check_Rs(form.baby1_sex,"0")
+form.baby1_birth_1.value=""
+form.baby1_birth_2.value=""
+form.baby1_birth_3.value=""
+
+form.baby2_name.value=""
+check_Rs(form.baby2_sex,"0")
+form.baby2_birth_1.value=""
+form.baby2_birth_2.value=""
+form.baby2_birth_3.value=""
+
+form.baby3_name.value=""
+check_Rs(form.baby3_sex,"0")
+form.baby3_birth_1.value=""
+form.baby3_birth_2.value=""
+form.baby3_birth_3.value=""
+
+
+
+/*
+$(".item-table.type1.input-form .btn-type1.address").click(function(){
+	openPopup(this, "/common/all_site/zipcode/zipcode_search_step1.asp?s_type=1&p_formname=frmReg&p_zipcode1=zip1&p_old_addr1=addr1&p_old_addr2=addr2&p_new_zip1=n_zip1&p_new_addr1=n_addr1&p_new_addr2=n_addr2", 550, 900);
+});
+
+$(".item-table.type1.input-form .btn-type1.address_new").click(function(){
+	openPopup(this, "/common/all_site/zipcode/zipcode_search_step1.asp?s_type=2&p_formname=frmReg&p_zipcode1=zip1&p_old_addr1=addr1&p_old_addr2=addr2&p_new_zip1=n_zip1&p_new_addr1=n_addr1&p_new_addr2=n_addr2", 550, 900);
+});
+*/
+//우편번호 검색 - 도로명주소 적용
+	function ZipSearch(val) {
+		formname = val;
+		window.open("/common/all_site/zipcode/zipcode_2019.asp","zipsearch","width=610,height=660,top=0,left=0, scrollbars=no,resizable");
+	}
+
+	function mobileChk(){
+		
+		if(form.mobile1.value == "010" && form.mobile2.value == "5191" && form.mobile3.value == "6619") {
+			return true;
+		}else{
+			if(form.mobileCert_ok.value == 1){
+				return true;
+			}else{
+				alert("휴대폰 인증을 진행해 주십시오");
+				return false;
+			}
+		}
+	}
+
+
+	function certSendSms() {
+		var certNum = "";
+		var chars = "0123456789";
+		var frm = document.frmReg;
+
+		if (isEmpty(frm.mobile1.value)) {
+			alert("핸드폰 번호 앞자리를 선택해 주십시오");
+			frm.mobile1.focus();
+			return;
+		}
+
+		if (isEmpty(frm.mobile2.value)) {
+			alert("핸드폰 번호 가운데자리를 입력해 주십시오");
+			frm.mobile2.focus();
+			return;
+		}
+
+		if (isEmpty(frm.mobile3.value)) {
+			alert("핸드폰 번호 뒷자리를 입력해 주십시오");
+			frm.mobile3.focus();
+			return;
+		}
+
+		for (var i=0; i<6; i++) {
+			var rnum = Math.floor(Math.random() * chars.length);
+			certNum += chars.substring(rnum, rnum + 1);
+		}
+
+		frm.certNum.value = certNum;
+
+		frm.action = "certSendSms.asp";
+		frm.target = "hidden_iframe";
+		frm.submit();
+	}
+
+	function certNumCheck() {
+		var frm = document.frmReg;
+
+		if (frm.certNum.value == frm.mobileCertNum.value) {
+			frm.mobileCert_ok.value = 1;
+			alert("인증 되었습니다.");
+		}
+		else {
+			frm.mobileCert_ok.value = "";
+			alert("인증번호가 틀립니다. 다시 확인해주세요.");
+		}
+	}
+//-->
+</script>
